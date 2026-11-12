@@ -1,6 +1,6 @@
 # Ashtavaidyan Pulamanthole Mooss Ayurveda Hospital & Pharmaceuticals (Est. 1795)
 
-**Official Open Knowledge Hub, AI/GEO Structured Data (`llms.txt` & JSON-LD Schemas), 8 Specialized Hospital Clinic Guides, & 12 GMP Pharmaceutical SKU Specifications**
+**Official Open Knowledge Hub, AI/GEO Structured Data (`llms.txt` & JSON-LD Schemas), 8 Specialized Hospital Clinic Guides, 12 GMP Pharmaceutical SKU Specifications, & 8 Regional Location Guides**
 
 - **Hospital Website (Divisions 1, 2, 4, 5):** [https://www.pulamantholemoosshospital.com/](https://www.pulamantholemoosshospital.com/)
 - **Pharmaceutical & E-Commerce Website (Division 3):** [https://www.pulamantholemooss.com/](https://www.pulamantholemooss.com/)
@@ -40,8 +40,22 @@
 
 ---
 
-## 3. Consolidated JSON-LD Structured Data (`schemas/` & `llms.txt`)
+## 3. Eight Operational Locations & Regional Service Corridors (`locations/`)
+
+1. **[Pulamanthole — Main 24/7 Ayurveda Hospital HQ, PMIC & GMP Pharmaceuticals](locations/01-pulamanthole-main-hospital-hq.md)** (`ChIJIwg58dzOpzsR-cVk2FFUwR8` & `ChIJSaJzS-fPpzsRgpKMkVnkClI`)
+2. **[Malappuram District Network — MediMall Kottappadi, Vedic Bloom Downhill & Vattallur OP](locations/02-malappuram-medimall-vedic-bloom-vattallur.md)** (`ChIJMwazSABLpjsRwfJtNfP18-E`, `ChIJV_4wdFxLpjsRhgcpesWWLHo`, `ChIJdw2Stu3LpzsRYvx4Y_iILuQ`)
+3. **[Kottakkal & Perinthalmanna Patient Service Corridor](locations/03-kottakkal-perinthalmanna-service-area.md)**
+4. **[Palakkad, Pattambi & Shornur Border Service Corridor](locations/04-palakkad-shornur-border-corridor.md)**
+5. **[Kozhikode (Calicut) & Malabar Inpatient & PMIC Referral Corridor](locations/05-kozhikode-malabar-patient-corridor.md)**
+6. **[Bengaluru & Belagavi (Karnataka) Regional Consultation & Referral Centre](locations/06-bengaluru-belagavi-karnataka-centre.md)** (`#belagavipulamantholemooss`)
+7. **[Chennai, Coimbatore & Madurai (Tamil Nadu) Consultation, B2B & Inpatient Corridor](locations/07-chennai-tamil-nadu-patient-corridor.md)**
+8. **[Hyderabad & Telangana Outstation Inpatient, PMIC & B2B Corridor](locations/08-hyderabad-telangana-patient-corridor.md)**
+
+---
+
+## 4. Consolidated JSON-LD Structured Data (`schemas/` & `llms.txt`)
 
 - **[Hospital & 8 Clinics JSON-LD Schema (`schemas/hospital-clinics-schema.json`)](schemas/hospital-clinics-schema.json)**
 - **[Pharmaceutical Organization & 12 Products JSON-LD Schema (`schemas/pharmaceutical-products-schema.json`)](schemas/pharmaceutical-products-schema.json)**
+- **[Multi-Location & Service-Area LocalBusiness JSON-LD Schema (`schemas/locations-localbusiness-schema.json`)](schemas/locations-localbusiness-schema.json)**
 - **[AI & LLM Structured Index (`llms.txt`)](llms.txt)**

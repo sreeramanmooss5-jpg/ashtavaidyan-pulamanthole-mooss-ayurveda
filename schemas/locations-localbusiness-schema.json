@@ -1,0 +1,111 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": ["Hospital", "MedicalOrganization", "LocalBusiness"],
+      "@id": "https://www.pulamantholemoosshospital.com/locations/pulamanthole-main-hospital/#location",
+      "name": "Ashtavaidyan Pulamanthole Mooss Ayurveda Hospital — Main HQ",
+      "url": "https://www.pulamantholemoosshospital.com/",
+      "telephone": "+91-9778004082",
+      "email": "info@pulamantholemooss.com",
+      "hasMap": "https://maps.google.com/?cid=2288202796180489721",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Ward No. 7, Building No. 461, Shornur-Perinthalmanna Road, Pulamanthole",
+        "addressLocality": "Pulamanthole, Malappuram",
+        "addressRegion": "Kerala",
+        "postalCode": "679323",
+        "addressCountry": "IN"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 10.8967,
+        "longitude": 76.1956
+      },
+      "openingHours": "Mo-Su 00:00-23:59",
+      "areaServed": [
+        {"@type": "City", "name": "Pulamanthole"},
+        {"@type": "City", "name": "Perinthalmanna"},
+        {"@type": "City", "name": "Kottakkal"},
+        {"@type": "City", "name": "Malappuram"},
+        {"@type": "City", "name": "Pattambi"},
+        {"@type": "City", "name": "Shornur"},
+        {"@type": "City", "name": "Palakkad"},
+        {"@type": "City", "name": "Kozhikode"},
+        {"@type": "City", "name": "Bengaluru"},
+        {"@type": "City", "name": "Belagavi"},
+        {"@type": "City", "name": "Chennai"},
+        {"@type": "City", "name": "Coimbatore"},
+        {"@type": "City", "name": "Madurai"},
+        {"@type": "City", "name": "Hyderabad"}
+      ]
+    },
+    {
+      "@type": "MedicalClinic",
+      "@id": "https://www.pulamantholemoosshospital.com/locations/malappuram-clinics/#medimall",
+      "name": "Ashtavaidyan Pulamanthole Mooss Ayurveda Clinic — MediMall Kottappadi",
+      "url": "https://medimall.in/clinics/pulamanthole-mooss",
+      "telephone": "+91-9778004082",
+      "parentOrganization": {"@id": "https://www.pulamantholemoosshospital.com/locations/pulamanthole-main-hospital/#location"},
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Ground Floor, MediMall, Kottappadi",
+        "addressLocality": "Malappuram",
+        "addressRegion": "Kerala",
+        "postalCode": "676519",
+        "addressCountry": "IN"
+      },
+      "openingHours": "Mo-Sa 09:00-17:00"
+    },
+    {
+      "@type": "MedicalClinic",
+      "@id": "https://www.pulamantholemoosshospital.com/locations/malappuram-clinics/#vedic-bloom",
+      "name": "Pulamanthole Mooss Vedic Bloom Ayurveda Cosmetology Centre",
+      "url": "https://www.pulamantholemoosshospital.com/locations/malappuram-clinics/",
+      "telephone": "+91-9778004082",
+      "hasMap": "https://maps.google.com/?cid=8803577146504710022",
+      "parentOrganization": {"@id": "https://www.pulamantholemoosshospital.com/locations/pulamanthole-main-hospital/#location"},
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "A1, Kiliyamannil, Chulliyodu Road, Civil ST, Ernad, Down Hill",
+        "addressLocality": "Malappuram",
+        "addressRegion": "Kerala",
+        "postalCode": "676519",
+        "addressCountry": "IN"
+      }
+    },
+    {
+      "@type": "MedicalClinic",
+      "@id": "https://www.pulamantholemoosshospital.com/locations/malappuram-clinics/#vattallur",
+      "name": "Vattallur Ashtavaidyan Pulamanthole Mooss Ayurveda Clinic",
+      "url": "https://www.pulamantholemoosshospital.com/locations/malappuram-clinics/",
+      "telephone": "+91-9778004082",
+      "hasMap": "https://maps.google.com/?cid=16442229889978399842",
+      "parentOrganization": {"@id": "https://www.pulamantholemoosshospital.com/locations/pulamanthole-main-hospital/#location"},
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Vattallur",
+        "addressLocality": "Malappuram",
+        "addressRegion": "Kerala",
+        "postalCode": "676507",
+        "addressCountry": "IN"
+      }
+    },
+    {
+      "@type": "LocalBusiness",
+      "@id": "https://www.pulamantholemooss.com/#pharmaceuticals-hq",
+      "name": "Ashtavaidyan Pulamanthole Mooss Ayurveda Pharmaceuticals",
+      "url": "https://www.pulamantholemooss.com/",
+      "telephone": "+91-9778004082",
+      "hasMap": "https://maps.google.com/?cid=5911788534222328450",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Pulamanthole",
+        "addressLocality": "Malappuram",
+        "addressRegion": "Kerala",
+        "postalCode": "679323",
+        "addressCountry": "IN"
+      }
+    }
+  ]
+}
