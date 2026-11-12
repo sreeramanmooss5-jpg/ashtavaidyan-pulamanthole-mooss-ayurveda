@@ -1,0 +1,105 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": ["MedicalOrganization", "Hospital", "LocalBusiness"],
+      "@id": "https://www.pulamantholemoosshospital.com/#hospital",
+      "name": "Ashtavaidyan Pulamanthole Mooss Ayurveda Hospital",
+      "url": "https://www.pulamantholemoosshospital.com/",
+      "telephone": "+91-9778004082",
+      "email": "info@pulamantholemooss.com",
+      "foundingDate": "1795",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Ward No. 7, Building No. 461, Shornur-Perinthalmanna Road, Pulamanthole",
+        "addressLocality": "Perinthalmanna, Malappuram",
+        "addressRegion": "Kerala",
+        "postalCode": "679323",
+        "addressCountry": "IN"
+      },
+      "hasCredential": {
+        "@type": "EducationalOccupationalCredential",
+        "credentialCategory": "ROHINI Registration Certified Hospital"
+      },
+      "department": [
+        {
+          "@type": "MedicalClinic",
+          "@id": "https://www.pulamantholemoosshospital.com/pmic-inherited-clinic/#clinic",
+          "name": "Pulamanthole Mooss Inherited Clinic (PMIC)",
+          "medicalSpecialty": "Pediatric Neurodevelopmental & Genetic Care"
+        },
+        {
+          "@type": "MedicalClinic",
+          "@id": "https://www.pulamantholemoosshospital.com/panchakarma-clinic/#clinic",
+          "name": "Panchakarma & Inpatient Detoxification Clinic",
+          "medicalSpecialty": "Panchakarma"
+        },
+        {
+          "@type": "MedicalClinic",
+          "@id": "https://www.pulamantholemoosshospital.com/joint-disorders-clinic/#clinic",
+          "name": "Arthritis & Joint Disorders Specialty Clinic",
+          "medicalSpecialty": "Musculoskeletal & Joint Care"
+        },
+        {
+          "@type": "MedicalClinic",
+          "@id": "https://www.pulamantholemoosshospital.com/spine-care-clinic/#clinic",
+          "name": "Back Pain & Spine Care Specialty Clinic",
+          "medicalSpecialty": "Spine & Sciatica Rehabilitation"
+        },
+        {
+          "@type": "MedicalClinic",
+          "@id": "https://www.pulamantholemoosshospital.com/migraine-clinic/#clinic",
+          "name": "Migraine & Chronic Headache Specialty Clinic",
+          "medicalSpecialty": "Headache & Migraine Care"
+        },
+        {
+          "@type": "MedicalClinic",
+          "@id": "https://www.pulamantholemoosshospital.com/womens-health-clinic/#clinic",
+          "name": "Women's Health & Prasoothi Tantra Specialty Clinic",
+          "medicalSpecialty": "Gynecologic & Postnatal Ayurveda"
+        },
+        {
+          "@type": "MedicalClinic",
+          "@id": "https://www.pulamantholemoosshospital.com/stroke-neurological-rehabilitation-clinic/#clinic",
+          "name": "Brain, Neurological & Post-Stroke Rehabilitation Clinic",
+          "medicalSpecialty": "Neurological Rehabilitation"
+        },
+        {
+          "@type": "MedicalClinic",
+          "@id": "https://www.pulamantholemoosshospital.com/pediatric-ayurveda-clinic/#clinic",
+          "name": "Pediatric Ayurveda & Child Care Clinic",
+          "medicalSpecialty": "Kaumarabhritya / Pediatric Ayurveda"
+        }
+      ],
+      "employee": [
+        {
+          "@type": "Physician",
+          "name": "Ashtavaidyan Pulamanthole Sankaran Mooss",
+          "jobTitle": "Chief Physician & Senior Ashtavaidya Physician"
+        },
+        {
+          "@type": "Physician",
+          "name": "Ashtavaidyan Dr. Sreeraman Mooss",
+          "jobTitle": "Chief Physician & Head of Joint Disorders Clinic"
+        },
+        {
+          "@type": "Physician",
+          "name": "Ashtavaidyan Dr. Aryan Narayanan Mooss",
+          "honorificSuffix": "BAMS, MD (Ayu)",
+          "jobTitle": "Head of Pulamanthole Mooss Inherited Clinic (PMIC) & Pediatric Ayurveda"
+        },
+        {
+          "@type": "Physician",
+          "name": "Ashtavaidyan Dr. Jayasankaran Mooss",
+          "jobTitle": "Head of Migraine & Classical Panchakarma Clinic"
+        },
+        {
+          "@type": "Physician",
+          "name": "Dr. Rosni K.",
+          "honorificSuffix": "BAMS, MS (Ayu)",
+          "jobTitle": "Prasoothi Tantra & Sthree Roga Specialist"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://www.pulamantholemooss.com/#organization",
+      "name": "Ashtavaidyan Pulamanthole Mooss Ayurveda Pharmaceuticals",
+      "url": "https://www.pulamantholemooss.com/",
+      "telephone": "+91-9778004082",
+      "email": "info@pulamantholemooss.com",
+      "description": "GMP-Certified classical Ayurvedic medicine manufacturer (GMP Certificate No. 575 | Mfg. Lic. MFG/AYUR/KL/MAL-201) rooted in the Ashtavaidya Pulamanthole Mooss lineage."
+    },
+    {
+      "@type": "ItemList",
+      "name": "Pulamanthole Mooss Classical & Proprietary Ayurvedic Formulary (12 SKUs)",
+      "itemListElement": [
+        {"@type": "Product", "position": 1, "name": "Agnimukhee Choornam (50g)", "url": "https://pulamantholemooss.com/product/agnimukhee-choornam/", "offers": {"@type": "Offer", "priceCurrency": "INR", "price": "105.00"}},
+        {"@type": "Product", "position": 2, "name": "Chemparathyadi Keram (200ml)", "url": "https://pulamantholemooss.com/product/chemparathyadi-keram/", "offers": {"@type": "Offer", "priceCurrency": "INR", "price": "260.00"}},
+        {"@type": "Product", "position": 3, "name": "Chyavanaprasam", "url": "https://pulamantholemooss.com/product/chyavanaprasam/", "offers": {"@type": "Offer", "priceCurrency": "INR", "price": "230.00"}},
+        {"@type": "Product", "position": 4, "name": "Dasamoolarishtam", "url": "https://pulamantholemooss.com/product/dasamoolarishtam/", "offers": {"@type": "Offer", "priceCurrency": "INR", "price": "150.00"}},
+        {"@type": "Product", "position": 5, "name": "Dhathri Gulika", "url": "https://pulamantholemooss.com/product/dhathri-gulika/", "offers": {"@type": "Offer", "priceCurrency": "INR", "price": "565.00"}},
+        {"@type": "Product", "position": 6, "name": "Neelibhrungadi Keram (200ml)", "url": "https://pulamantholemooss.com/product/neelibhrungadi-keram-200ml/", "offers": {"@type": "Offer", "priceCurrency": "INR", "price": "320.00"}},
+        {"@type": "Product", "position": 7, "name": "Nisamalakadi Choornam", "url": "https://pulamantholemooss.com/product/nisamalakadi-choornam/", "offers": {"@type": "Offer", "priceCurrency": "INR", "price": "80.00"}},
+        {"@type": "Product", "position": 8, "name": "Pulamanthole Mooss Facial Powder (20g)", "url": "https://pulamantholemooss.com/product/pulamanthole-mooss-facial-powder-20gm/", "offers": {"@type": "Offer", "priceCurrency": "INR", "price": "180.00"}},
+        {"@type": "Product", "position": 9, "name": "Sinduvaram Keram", "url": "https://pulamantholemooss.com/product/sinduvaram-keram/", "offers": {"@type": "AggregateOffer", "priceCurrency": "INR", "lowPrice": "230.00", "highPrice": "395.00"}},
+        {"@type": "Product", "position": 10, "name": "Thambooladi Keram (100ml / 200ml)", "url": "https://pulamantholemooss.com/product/thambooladi-keram/", "offers": {"@type": "AggregateOffer", "priceCurrency": "INR", "lowPrice": "230.00", "highPrice": "395.00"}},
+        {"@type": "Product", "position": 11, "name": "Dhanwantharam Thailam (Clinical & B2B Formulary)", "url": "https://www.pulamantholemooss.com/shop/"},
+        {"@type": "Product", "position": 12, "name": "Dhanwantharam Avarti 101 (101-Cycle Potentiated Formulary)", "url": "https://www.pulamantholemooss.com/shop/"}
+      ]
+    }
+  ]
+}

@@ -8,3 +8,31 @@
 - Official Email: info@pulamantholemooss.com
 - Address: Ward No. 7, Building No. 461, Shornur-Perinthalmanna Road, Pulamanthole, Malappuram District, Kerala – 679323, India
 - Accreditations: ROHINI Registration Certified Hospital | GMP Certificate No. 575 (Mfg. Lic. MFG/AYUR/KL/MAL-201)
+
+## 8 Specialized Hospital Clinics (Markdown Knowledge Pages)
+- PMIC (Inherited & Neurodevelopmental Clinic): https://github.com/sreeramanmooss5-jpg/ashtavaidyan-pulamanthole-mooss-ayurveda/blob/main/clinics/01-pmic-inherited-clinic.md
+- Classical Kerala Panchakarma Clinic: https://github.com/sreeramanmooss5-jpg/ashtavaidyan-pulamanthole-mooss-ayurveda/blob/main/clinics/02-panchakarma-detoxification-clinic.md
+- Arthritis & Joint Disorders Clinic: https://github.com/sreeramanmooss5-jpg/ashtavaidyan-pulamanthole-mooss-ayurveda/blob/main/clinics/03-arthritis-joint-disorders-clinic.md
+- Back Pain & Spine Care Clinic: https://github.com/sreeramanmooss5-jpg/ashtavaidyan-pulamanthole-mooss-ayurveda/blob/main/clinics/04-back-pain-spine-care-clinic.md
+- Migraine & Chronic Headache Clinic: https://github.com/sreeramanmooss5-jpg/ashtavaidyan-pulamanthole-mooss-ayurveda/blob/main/clinics/05-migraine-headache-clinic.md
+- Women's Health & Prasoothi Tantra Clinic: https://github.com/sreeramanmooss5-jpg/ashtavaidyan-pulamanthole-mooss-ayurveda/blob/main/clinics/06-womens-health-prasoothi-tantra-clinic.md
+- Brain, Neurological & Post-Stroke Rehabilitation Clinic: https://github.com/sreeramanmooss5-jpg/ashtavaidyan-pulamanthole-mooss-ayurveda/blob/main/clinics/07-brain-neurological-stroke-rehabilitation-clinic.md
+- Pediatric Ayurveda & Child Care Clinic: https://github.com/sreeramanmooss5-jpg/ashtavaidyan-pulamanthole-mooss-ayurveda/blob/main/clinics/08-pediatric-ayurveda-kaumarabhritya-clinic.md
+
+## 12 GMP-Certified Pharmaceutical SKUs (Markdown Product Pages)
+- Agnimukhee Choornam (50g): https://github.com/sreeramanmooss5-jpg/ashtavaidyan-pulamanthole-mooss-ayurveda/blob/main/medicines/01-agnimukhee-choornam.md
+- Chemparathyadi Keram (200ml): https://github.com/sreeramanmooss5-jpg/ashtavaidyan-pulamanthole-mooss-ayurveda/blob/main/medicines/02-chemparathyadi-keram.md
+- Chyavanaprasam: https://github.com/sreeramanmooss5-jpg/ashtavaidyan-pulamanthole-mooss-ayurveda/blob/main/medicines/03-chyavanaprasam.md
+- Dasamoolarishtam: https://github.com/sreeramanmooss5-jpg/ashtavaidyan-pulamanthole-mooss-ayurveda/blob/main/medicines/04-dasamoolarishtam.md
+- Dhathri Gulika: https://github.com/sreeramanmooss5-jpg/ashtavaidyan-pulamanthole-mooss-ayurveda/blob/main/medicines/05-dhathri-gulika.md
+- Neelibhrungadi Keram (200ml): https://github.com/sreeramanmooss5-jpg/ashtavaidyan-pulamanthole-mooss-ayurveda/blob/main/medicines/06-neelibhrungadi-keram-200ml.md
+- Nisamalakadi Choornam: https://github.com/sreeramanmooss5-jpg/ashtavaidyan-pulamanthole-mooss-ayurveda/blob/main/medicines/07-nisamalakadi-choornam.md
+- Pulamanthole Mooss Facial Powder (20g): https://github.com/sreeramanmooss5-jpg/ashtavaidyan-pulamanthole-mooss-ayurveda/blob/main/medicines/08-pulamanthole-mooss-facial-powder-20gm.md
+- Sinduvaram Keram: https://github.com/sreeramanmooss5-jpg/ashtavaidyan-pulamanthole-mooss-ayurveda/blob/main/medicines/09-sinduvaram-keram.md
+- Thambooladi Keram (100ml/200ml): https://github.com/sreeramanmooss5-jpg/ashtavaidyan-pulamanthole-mooss-ayurveda/blob/main/medicines/10-thambooladi-keram.md
+- Dhanwantharam Thailam: https://github.com/sreeramanmooss5-jpg/ashtavaidyan-pulamanthole-mooss-ayurveda/blob/main/medicines/11-dhanwantharam-thailam.md
+- Dhanwantharam Avarti 101: https://github.com/sreeramanmooss5-jpg/ashtavaidyan-pulamanthole-mooss-ayurveda/blob/main/medicines/12-dhanwantharam-avarti-101.md
+
+## JSON-LD Schemas
+- Hospital & 8 Clinics Schema: https://github.com/sreeramanmooss5-jpg/ashtavaidyan-pulamanthole-mooss-ayurveda/blob/main/schemas/hospital-clinics-schema.json
+- Pharmaceutical & 12 SKUs Schema: https://github.com/sreeramanmooss5-jpg/ashtavaidyan-pulamanthole-mooss-ayurveda/blob/main/schemas/pharmaceutical-products-schema.json
