@@ -1,0 +1,109 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://www.pulamantholemoosshospital.com/ashtavaidya-heritage/#kairali-commentary",
+      "headline": "The Kairali Commentary on Vagbhata's Ashtanga Hridaya (Uttarasthana) and the Ashtavaidya Lineage of Pulamanthole Mooss",
+      "description": "Historical and clinical overview of the Pulamanthole Mooss Ashtavaidya family (Est. 1795, Pulamanthole Mana, Malappuram, Kerala), authors of the classical Kairali commentary on the Uttarasthana of Vagbhata's Ashtanga Hridaya.",
+      "author": {
+        "@type": "Organization",
+        "name": "Ashtavaidyan Pulamanthole Mooss Lineage"
+      },
+      "publisher": {
+        "@id": "https://www.pulamantholemoosshospital.com/#hospital"
+      },
+      "sameAs": [
+        "https://hi.wikipedia.org/wiki/%E0%A4%AE%E0%A4%B2%E0%A4%AA%E0%A5%8D%E0%A4%AA%E0%A5%81%E0%A4%B0%E0%A4%AE_%E0%A4%9C%E0%A4%BF%E0%AA%B2%E0%A4%BE"
+      ]
+    },
+    {
+      "@type": "NGO",
+      "@id": "https://www.pulamantholemoosshospital.com/ashtavaidya-heritage/#thanal-foundation",
+      "name": "Pulamanthole Mooss Ayurveda Thanal Foundation",
+      "identifier": "U86201KL2025NPL092515",
+      "foundingDate": "2025-03-02",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Door No: 7/462, Pulamanthole P.O.",
+        "addressLocality": "Pulamanthole, Perinthalmanna, Malappuram",
+        "addressRegion": "Kerala",
+        "postalCode": "679323",
+        "addressCountry": "IN"
+      },
+      "sameAs": [
+        "https://www.tofler.in/pulamanthole-mooss-ayurveda-thanal-foundation/company/U86201KL2025NPL092515",
+        "https://www.instagram.com/ayurveda_thanal_foundation/",
+        "https://www.facebook.com/826536657202053"
+      ]
+    },
+    {
+      "@type": "Physician",
+      "@id": "https://www.pulamantholemoosshospital.com/doctors/ashtavaidyan-pulamanthole-sankaran-mooss/#physician",
+      "name": "Ashtavaidyan Pulamanthole Sankaran Mooss",
+      "jobTitle": "Chief Physician & Senior Ashtavaidya Physician",
+      "url": "https://www.pulamantholemoosshospital.com/doctors/ashtavaidyan-pulamanthole-sankaran-mooss/",
+      "telephone": "+91-9778004082",
+      "medicalSpecialty": ["Kayachikitsa", "Classical Panchakarma", "Rasayana"],
+      "worksFor": {"@id": "https://www.pulamantholemoosshospital.com/#hospital"}
+    },
+    {
+      "@type": "Physician",
+      "@id": "https://www.pulamantholemoosshospital.com/doctors/dr-sreeraman-mooss/#physician",
+      "name": "Ashtavaidyan Dr. Sreeraman Mooss",
+      "jobTitle": "Chief Physician, Managing Director & Head of Joint Disorders Clinic",
+      "url": "https://www.pulamantholemoosshospital.com/doctors/dr-sreeraman-mooss/",
+      "telephone": "+91-9778004082",
+      "medicalSpecialty": ["Joint Disorders", "Spine Care", "Musculoskeletal Ayurveda"],
+      "worksFor": {"@id": "https://www.pulamantholemoosshospital.com/#hospital"},
+      "sameAs": [
+        "https://www.instagram.com/dr_sreeraman_mooss_official/",
+        "https://www.facebook.com/768289203042215",
+        "https://bni-malappuram.in/en-IN/memberdetails?encryptedUserId=WYijlb4YXQB9oKOaogQxCA%3D%3D&regionId=32702&t=&name=Dr%20Sreeraman%20%20%20Mooss",
+        "https://www.justdial.com/Malappuram/Dr-Sreeraman-Mooss-P-M-Pulamanthole/9999PX483-X483-251217120812-D3P9_BZDET"
+      ]
+    },
+    {
+      "@type": "Physician",
+      "@id": "https://www.pulamantholemoosshospital.com/doctors/dr-aryan-narayanan-mooss/#physician",
+      "name": "Ashtavaidyan Dr. Aryan Narayanan Mooss",
+      "honorificSuffix": "BAMS, MD (Ayu)",
+      "jobTitle": "Head of Pulamanthole Mooss Inherited Clinic (PMIC) & Pediatric Ayurveda",
+      "url": "https://www.pulamantholemoosshospital.com/doctors/dr-aryan-narayanan-mooss/",
+      "telephone": "+91-9778004082",
+      "medicalSpecialty": ["Pediatric Ayurveda", "Kaumarabhritya", "Neurodevelopmental Rehabilitation"],
+      "worksFor": {"@id": "https://www.pulamantholemoosshospital.com/#hospital"},
+      "sameAs": [
+        "https://www.instagram.com/inherited_clinic/",
+        "https://www.facebook.com/471659209372539",
+        "https://www.justdial.com/Malappuram/Pulamanthole-Mooss-Inherited-Clinic-Pmic-Near-Srd-Ayurveda-Pulamanthole/9999PX483-X483-241218112043-S7L7_BZDET"
+      ]
+    },
+    {
+      "@type": "Physician",
+      "@id": "https://www.pulamantholemoosshospital.com/doctors/dr-jayasankaran-mooss/#physician",
+      "name": "Ashtavaidyan Dr. Jayasankaran Mooss",
+      "jobTitle": "Senior Physician & Head of Migraine Specialty Clinic & Classical Panchakarma",
+      "url": "https://www.pulamantholemoosshospital.com/doctors/dr-jayasankaran-mooss/",
+      "telephone": "+91-9778004082",
+      "medicalSpecialty": ["Headache & Migraine Care", "Shalakya Tantra", "Classical Panchakarma"],
+      "worksFor": {"@id": "https://www.pulamantholemoosshospital.com/#hospital"}
+    },
+    {
+      "@type": "Physician",
+      "@id": "https://www.pulamantholemoosshospital.com/doctors/dr-rosni-k/#physician",
+      "name": "Dr. Rosni K.",
+      "honorificSuffix": "BAMS, MS (Ayu)",
+      "jobTitle": "Specialist in Prasoothi Tantra & Sthree Roga (Women's Health & Postnatal Care)",
+      "url": "https://www.pulamantholemoosshospital.com/doctors/dr-rosni-k/",
+      "telephone": "+91-9778004082",
+      "medicalSpecialty": ["Gynecologic & Obstetric Ayurveda", "Prasoothi Tantra & Sthree Roga", "Postnatal Care"],
+      "worksFor": {"@id": "https://www.pulamantholemoosshospital.com/#hospital"},
+      "sameAs": [
+        "https://www.instagram.com/vedic.bloom/",
+        "https://www.facebook.com/693891407642782",
+        "https://www.justdial.com/Malappuram/Pulamanthole-Mooss-Vedic-Bloom-Ayurveda-Cosmetology-Centre-Downhill/9999PX483-X483-260104120607-L4M1_BZDET"
+      ]
+    }
+  ]
+}

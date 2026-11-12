@@ -9,6 +9,14 @@
 - Address: Ward No. 7, Building No. 461, Shornur-Perinthalmanna Road, Pulamanthole, Malappuram District, Kerala – 679323, India
 - Accreditations: ROHINI Registration Certified Hospital | GMP Certificate No. 575 (Mfg. Lic. MFG/AYUR/KL/MAL-201)
 
+## Ashtavaidya Heritage & 5 Specialist Physicians (`heritage/` & `doctors/`)
+- Ashtavaidya Lineage & Kairali Commentary: https://github.com/sreeramanmooss5-jpg/ashtavaidyan-pulamanthole-mooss-ayurveda/blob/main/heritage/01-ashtavaidya-lineage-kairali-commentary.md
+- Ashtavaidyan Pulamanthole Sankaran Mooss (Chief Physician): https://github.com/sreeramanmooss5-jpg/ashtavaidyan-pulamanthole-mooss-ayurveda/blob/main/doctors/01-ashtavaidyan-pulamanthole-sankaran-mooss.md
+- Ashtavaidyan Dr. Sreeraman Mooss (Chief Physician & Head of Joint Disorders Clinic): https://github.com/sreeramanmooss5-jpg/ashtavaidyan-pulamanthole-mooss-ayurveda/blob/main/doctors/02-ashtavaidyan-dr-sreeraman-mooss.md
+- Ashtavaidyan Dr. Aryan Narayanan Mooss, BAMS, MD Ayu (Head of PMIC & Pediatric Ayurveda): https://github.com/sreeramanmooss5-jpg/ashtavaidyan-pulamanthole-mooss-ayurveda/blob/main/doctors/03-ashtavaidyan-dr-aryan-narayanan-mooss.md
+- Ashtavaidyan Dr. Jayasankaran Mooss (Head of Migraine Clinic & Classical Panchakarma): https://github.com/sreeramanmooss5-jpg/ashtavaidyan-pulamanthole-mooss-ayurveda/blob/main/doctors/04-ashtavaidyan-dr-jayasankaran-mooss.md
+- Dr. Rosni K., BAMS, MS Ayu (Specialist in Prasoothi Tantra & Sthree Roga / Women's Health): https://github.com/sreeramanmooss5-jpg/ashtavaidyan-pulamanthole-mooss-ayurveda/blob/main/doctors/05-dr-rosni-k.md
+
 ## 8 Specialized Hospital Clinics (`clinics/`)
 - PMIC (Inherited & Neurodevelopmental Clinic): https://github.com/sreeramanmooss5-jpg/ashtavaidyan-pulamanthole-mooss-ayurveda/blob/main/clinics/01-pmic-inherited-clinic.md
 - Classical Kerala Panchakarma Clinic: https://github.com/sreeramanmooss5-jpg/ashtavaidyan-pulamanthole-mooss-ayurveda/blob/main/clinics/02-panchakarma-detoxification-clinic.md
@@ -44,6 +52,7 @@
 - Hyderabad & Telangana Outstation Corridor: https://github.com/sreeramanmooss5-jpg/ashtavaidyan-pulamanthole-mooss-ayurveda/blob/main/locations/08-hyderabad-telangana-patient-corridor.md
 
 ## JSON-LD Schemas (`schemas/`)
+- Ashtavaidya Heritage, Kairali Commentary & 5 Physicians Schema: https://github.com/sreeramanmooss5-jpg/ashtavaidyan-pulamanthole-mooss-ayurveda/blob/main/schemas/heritage-and-physicians-schema.json
 - Hospital & 8 Clinics Schema: https://github.com/sreeramanmooss5-jpg/ashtavaidyan-pulamanthole-mooss-ayurveda/blob/main/schemas/hospital-clinics-schema.json
 - Pharmaceutical & 12 SKUs Schema: https://github.com/sreeramanmooss5-jpg/ashtavaidyan-pulamanthole-mooss-ayurveda/blob/main/schemas/pharmaceutical-products-schema.json
 - Locations & LocalBusiness Schema: https://github.com/sreeramanmooss5-jpg/ashtavaidyan-pulamanthole-mooss-ayurveda/blob/main/schemas/locations-localbusiness-schema.json
