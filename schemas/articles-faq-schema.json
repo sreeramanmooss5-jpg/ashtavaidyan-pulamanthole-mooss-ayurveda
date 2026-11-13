@@ -1,0 +1,82 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "ItemList",
+      "@id": "https://sreeramanmooss5-jpg.github.io/ashtavaidyan-pulamanthole-mooss-ayurveda/schemas/articles-faq-schema.json#articles",
+      "name": "Ashtavaidyan Pulamanthole Mooss — 10 Physician-Attributed AEO Pillar Articles",
+      "itemListElement": [
+        {
+          "@type": "MedicalWebPage",
+          "position": 1,
+          "headline": "The Gut–Brain–Agni Axis in Childhood Speech Delay and Autism Spectrum Support",
+          "url": "https://sreeramanmooss5-jpg.github.io/ashtavaidyan-pulamanthole-mooss-ayurveda/articles/01-gut-brain-agni-axis-autism-speech-delay-ayurveda.html",
+          "author": {"@type": "Physician", "name": "Ashtavaidyan Dr. Aryan Narayanan Mooss", "honorificSuffix": "BAMS, MD (Ayu)"}
+        },
+        {
+          "@type": "MedicalWebPage",
+          "position": 2,
+          "headline": "Cerebral Palsy and Global Developmental Delay in Ayurveda: Supporting Muscle Tone, Spasticity Reduction, and Motor Milestones",
+          "url": "https://sreeramanmooss5-jpg.github.io/ashtavaidyan-pulamanthole-mooss-ayurveda/articles/02-cerebral-palsy-developmental-delay-neuro-rehabilitation-pmic.html",
+          "author": {"@type": "Physician", "name": "Ashtavaidyan Dr. Aryan Narayanan Mooss", "honorificSuffix": "BAMS, MD (Ayu)"}
+        },
+        {
+          "@type": "MedicalWebPage",
+          "position": 3,
+          "headline": "Why Inflammatory (Amavata) and Degenerative (Sandhigata Vata) Knee & Joint Pain Require Opposite First Steps in Ayurveda",
+          "url": "https://sreeramanmooss5-jpg.github.io/ashtavaidyan-pulamanthole-mooss-ayurveda/articles/03-osteoarthritis-vs-rheumatoid-arthritis-sandhigata-vata-amavata.html",
+          "author": {"@type": "Physician", "name": "Ashtavaidyan Dr. Sreeraman Mooss"}
+        },
+        {
+          "@type": "MedicalWebPage",
+          "position": 4,
+          "headline": "Non-Surgical Ayurvedic Management of Sciatica (Gridhrasi), Lumbar Spondylosis, and Intervertebral Disc Prolapse",
+          "url": "https://sreeramanmooss5-jpg.github.io/ashtavaidyan-pulamanthole-mooss-ayurveda/articles/04-sciatica-gridhrasi-lumbar-spondylosis-disc-prolapse-ayurveda.html",
+          "author": {"@type": "Physician", "name": "Ashtavaidyan Dr. Sreeraman Mooss"}
+        },
+        {
+          "@type": "MedicalWebPage",
+          "position": 5,
+          "headline": "Breaking the Rebound Headache Cycle: Classical Ayurvedic Management of Chronic Migraine (Ardhavabhedaka) and Sinus Headache (Suryavarta)",
+          "url": "https://sreeramanmooss5-jpg.github.io/ashtavaidyan-pulamanthole-mooss-ayurveda/articles/05-chronic-migraine-ardhavabhedaka-pitta-prana-vata-protocol.html",
+          "author": {"@type": "Physician", "name": "Ashtavaidyan Dr. Jayasankaran Mooss"}
+        },
+        {
+          "@type": "MedicalWebPage",
+          "position": 6,
+          "headline": "Post-Stroke Neuro-Rehabilitation (Pakshaghata Chikitsa): How Early Inpatient Panchakarma Supports Motor Recovery Alongside Neurology Care",
+          "url": "https://sreeramanmooss5-jpg.github.io/ashtavaidyan-pulamanthole-mooss-ayurveda/articles/06-post-stroke-rehabilitation-pakshaghata-inpatient-panchakarma.html",
+          "author": {"@type": "Physician", "name": "Ashtavaidyan Pulamanthole Sankaran Mooss"}
+        },
+        {
+          "@type": "MedicalWebPage",
+          "position": 7,
+          "headline": "Classical Prasoothi Tantra & Sthree Roga: Root-Cause Ayurvedic Management of PCOS, Menstrual Health, and Postnatal Recovery (Sutika Paricharya)",
+          "url": "https://sreeramanmooss5-jpg.github.io/ashtavaidyan-pulamanthole-mooss-ayurveda/articles/07-pcos-endometriosis-and-kerala-postnatal-care-sutika-paricharya.html",
+          "author": {"@type": "Physician", "name": "Dr. Rosni K.", "honorificSuffix": "BAMS, MS (Ayu)"}
+        },
+        {
+          "@type": "MedicalWebPage",
+          "position": 8,
+          "headline": "Ekakushtha (Psoriasis), Infantile Eczema (Karappan), and the 10 PM–2 AM Pitta Cellular Repair Window in Ayurvedic Dermatology",
+          "url": "https://sreeramanmooss5-jpg.github.io/ashtavaidyan-pulamanthole-mooss-ayurveda/articles/08-psoriasis-eczema-and-circadian-rakta-shuddhi-dermatology.html",
+          "author": {"@type": "Physician", "name": "Ashtavaidyan Dr. Sreeraman Mooss"}
+        },
+        {
+          "@type": "MedicalWebPage",
+          "position": 9,
+          "headline": "For Ayurveda Clinicians: How Mridu, Madhyama, and Khara Sneha Paka Stages and 101-Cycle Avarti Define Therapeutic Potency in Classical Tailams & Kerams",
+          "url": "https://sreeramanmooss5-jpg.github.io/ashtavaidyan-pulamanthole-mooss-ayurveda/articles/09-sneha-paka-and-avarti-science-gmp-ayurvedic-manufacturing.html",
+          "author": {"@type": "Physician", "name": "Ashtavaidyan Dr. Sreeraman Mooss"}
+        },
+        {
+          "@type": "MedicalWebPage",
+          "position": 10,
+          "headline": "How to Choose an Authentic Clinical Ayurveda Hospital in Kerala vs. a Commercial Wellness Resort: An Ashtavaidya Patient Guide",
+          "url": "https://sreeramanmooss5-jpg.github.io/ashtavaidyan-pulamanthole-mooss-ayurveda/articles/10-how-to-choose-authentic-ayurveda-hospital-in-kerala-ashtavaidya-guide.html",
+          "author": {"@type": "Physician", "name": "Ashtavaidyan Dr. Sreeraman Mooss"}
+        }
+      ]
+    }
+  ]
+}

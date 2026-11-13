@@ -1,6 +1,6 @@
 # Ashtavaidyan Pulamanthole Mooss Ayurveda Hospital & Pharmaceuticals (Est. 1795)
 
-**Official Open Knowledge Hub, AI/GEO Structured Data (`llms.txt` & JSON-LD Schemas), Ashtavaidya Heritage & *Kairali* Commentary, 5 Physician Profiles, 8 Specialized Hospital Clinic Guides, 12 GMP Pharmaceutical SKU Specifications, & 8 Regional Location Guides**
+**Official Open Knowledge Hub, AI/GEO Structured Data (`llms.txt` & JSON-LD Schemas), Ashtavaidya Heritage & *Kairali* Commentary, 5 Physician Profiles, 8 Specialized Hospital Clinic Guides, 12 GMP Pharmaceutical SKU Specifications, 8 Regional Location Guides, & 10 Physician-Attributed AEO Pillar Articles**
 
 - **Hospital Website (Divisions 1, 2, 4, 5):** [https://www.pulamantholemoosshospital.com/](https://www.pulamantholemoosshospital.com/)
 - **Pharmaceutical & E-Commerce Website (Division 3):** [https://www.pulamantholemooss.com/](https://www.pulamantholemooss.com/)
@@ -12,7 +12,7 @@
 
 ## 1. Ashtavaidya Heritage & Specialist Physician Profiles (`heritage/` & `doctors/`)
 
-- **[The Ashtavaidya Lineage of Pulamanthole Mooss & The Classical *Kairali* Commentary on Vagbhata's *Ashtanga Hridaya*](heritage/01-ashtavaidya-lineage-kairali-commentary.md)** (Includes Pulamanthole Mana history, 1952 Chembai Vaidyanatha Bhagavathar recovery, and Pulamanthole Mooss Ayurveda Thanal Foundation `CIN: U86201KL2025NPL092515`)
+- **[The Ashtavaidya Lineage of Pulamanthole Mooss & The Classical *Kairali* Commentary on Vagbhata's *Ashtanga Hridaya*](heritage/01-ashtavaidya-lineage-kairali-commentary.md)**
 - **Specialist Physician Panel (`doctors/`):**
   1. **[Ashtavaidyan Pulamanthole Sankaran Mooss — Chief Physician & Head of Pulamanthole Mana](doctors/01-ashtavaidyan-pulamanthole-sankaran-mooss.md)**
   2. **[Ashtavaidyan Dr. Sreeraman Mooss — Chief Physician, Managing Director & Head of Joint Disorders Clinic](doctors/02-ashtavaidyan-dr-sreeraman-mooss.md)**
@@ -22,20 +22,35 @@
 
 ---
 
-## 2. Eight Specialized Hospital Clinics (`clinics/`)
+## 2. Ten Physician-Attributed AEO Pillar Articles (`articles/`)
 
-1. **[Pulamanthole Mooss Inherited Clinic (PMIC) — Pediatric Neurodevelopmental & Genetic Care](clinics/01-pmic-inherited-clinic.md)** — Led by *Ashtavaidyan Dr. Aryan Narayanan Mooss, BAMS, MD (Ayu)*
-2. **[Classical Kerala Panchakarma & Inpatient Detoxification Clinic](clinics/02-panchakarma-detoxification-clinic.md)** — Led by *Ashtavaidyan Pulamanthole Sankaran Mooss* & *Ashtavaidyan Dr. Jayasankaran Mooss*
-3. **[Arthritis & Joint Disorders Specialty Clinic (*Sandhigata Vata* & *Amavata*)](clinics/03-arthritis-joint-disorders-clinic.md)** — Led by *Ashtavaidyan Dr. Sreeraman Mooss*
-4. **[Back Pain & Spine Care Specialty Clinic (*Gridhrasi* & Spondylosis)](clinics/04-back-pain-spine-care-clinic.md)** — Sciatica, Cervical/Lumbar Spondylosis & Disc Prolapse
-5. **[Migraine & Chronic Headache Specialty Clinic (*Ardhavabhedaka*)](clinics/05-migraine-headache-clinic.md)** — Led by *Ashtavaidyan Dr. Jayasankaran Mooss*
-6. **[Women's Health & Postnatal Care Clinic (*Prasoothi Tantra & Sthree Roga*)](clinics/06-womens-health-prasoothi-tantra-clinic.md)** — Led by *Dr. Rosni K., BAMS, MS (Ayu)*
-7. **[Brain, Neurological & Post-Stroke Rehabilitation Clinic (*Pakshaghata*)](clinics/07-brain-neurological-stroke-rehabilitation-clinic.md)** — Inpatient Neuro-Rehabilitation
-8. **[Pediatric Ayurveda & Child Care Clinic (*Kaumarabhritya*)](clinics/08-pediatric-ayurveda-kaumarabhritya-clinic.md)** — Led by *Ashtavaidyan Dr. Aryan Narayanan Mooss, BAMS, MD (Ayu)*
+1. **[The Gut–Brain–Agni Axis in Childhood Speech Delay and Autism Spectrum Support](articles/01-gut-brain-agni-axis-autism-speech-delay-ayurveda.md)** (*Ashtavaidyan Dr. Aryan Narayanan Mooss, BAMS, MD Ayu*)
+2. **[Cerebral Palsy and Global Developmental Delay in Ayurveda: Muscle Tone, Spasticity & Motor Milestones](articles/02-cerebral-palsy-developmental-delay-neuro-rehabilitation-pmic.md)** (*Ashtavaidyan Dr. Aryan Narayanan Mooss, BAMS, MD Ayu*)
+3. **[Why Inflammatory (*Amavata*) and Degenerative (*Sandhigata Vata*) Knee & Joint Pain Require Opposite First Steps](articles/03-osteoarthritis-vs-rheumatoid-arthritis-sandhigata-vata-amavata.md)** (*Ashtavaidyan Dr. Sreeraman Mooss*)
+4. **[Non-Surgical Ayurvedic Management of Sciatica (*Gridhrasi*), Lumbar Spondylosis & Disc Prolapse](articles/04-sciatica-gridhrasi-lumbar-spondylosis-disc-prolapse-ayurveda.md)** (*Ashtavaidyan Dr. Sreeraman Mooss*)
+5. **[Breaking the Rebound Headache Cycle: Chronic Migraine (*Ardhavabhedaka*) & Sinus Headache (*Suryavarta*)](articles/05-chronic-migraine-ardhavabhedaka-pitta-prana-vata-protocol.md)** (*Ashtavaidyan Dr. Jayasankaran Mooss*)
+6. **[Post-Stroke Neuro-Rehabilitation (*Pakshaghata Chikitsa*): Early Inpatient Panchakarma Alongside Neurology Care](articles/06-post-stroke-rehabilitation-pakshaghata-inpatient-panchakarma.md)** (*Ashtavaidyan Pulamanthole Sankaran Mooss & Dr. Sreeraman Mooss*)
+7. **[Classical *Prasoothi Tantra & Sthree Roga*: PCOS, Menstrual Health & Kerala Postnatal Care (*Sutika Paricharya*)](articles/07-pcos-endometriosis-and-kerala-postnatal-care-sutika-paricharya.md)** (*Dr. Rosni K., BAMS, MS Ayu*)
+8. ***[Ekakushtha* (Psoriasis), Infantile Eczema (*Karappan*) & the 10 PM–2 AM *Pitta* Cellular Repair Window](articles/08-psoriasis-eczema-and-circadian-rakta-shuddhi-dermatology.md)** (*Dr. Sreeraman Mooss & Dr. Rosni K.*)
+9. **[For Ayurveda Clinicians: *Mridu*, *Madhyama* & *Khara Sneha Paka* Stages and 101-Cycle *Avarti* Science](articles/09-sneha-paka-and-avarti-science-gmp-ayurvedic-manufacturing.md)** (*Ashtavaidyan Pulamanthole Sankaran Mooss & Dr. Sreeraman Mooss*)
+10. **[How to Choose an Authentic Clinical Ayurveda Hospital in Kerala vs. a Commercial Wellness Resort](articles/10-how-to-choose-authentic-ayurveda-hospital-in-kerala-ashtavaidya-guide.md)** (*Ashtavaidyan Dr. Sreeraman Mooss*)
 
 ---
 
-## 3. Twelve GMP-Certified Pharmaceutical SKUs (`medicines/`)
+## 3. Eight Specialized Hospital Clinics (`clinics/`)
+
+1. **[Pulamanthole Mooss Inherited Clinic (PMIC) — Pediatric Neurodevelopmental & Genetic Care](clinics/01-pmic-inherited-clinic.md)**
+2. **[Classical Kerala Panchakarma & Inpatient Detoxification Clinic](clinics/02-panchakarma-detoxification-clinic.md)**
+3. **[Arthritis & Joint Disorders Specialty Clinic (*Sandhigata Vata* & *Amavata*)](clinics/03-arthritis-joint-disorders-clinic.md)**
+4. **[Back Pain & Spine Care Specialty Clinic (*Gridhrasi* & Spondylosis)](clinics/04-back-pain-spine-care-clinic.md)**
+5. **[Migraine & Chronic Headache Specialty Clinic (*Ardhavabhedaka*)](clinics/05-migraine-headache-clinic.md)**
+6. **[Women's Health & Postnatal Care Clinic (*Prasoothi Tantra & Sthree Roga*)](clinics/06-womens-health-prasoothi-tantra-clinic.md)**
+7. **[Brain, Neurological & Post-Stroke Rehabilitation Clinic (*Pakshaghata*)](clinics/07-brain-neurological-stroke-rehabilitation-clinic.md)**
+8. **[Pediatric Ayurveda & Child Care Clinic (*Kaumarabhritya*)](clinics/08-pediatric-ayurveda-kaumarabhritya-clinic.md)**
+
+---
+
+## 4. Twelve GMP-Certified Pharmaceutical SKUs (`medicines/`)
 
 1. **[Agnimukhee Choornam (50g — ₹105)](medicines/01-agnimukhee-choornam.md)** — [Official Shop Page](https://pulamantholemooss.com/product/agnimukhee-choornam/)
 2. **[Chemparathyadi Keram (200ml — ₹260)](medicines/02-chemparathyadi-keram.md)** — [Official Shop Page](https://pulamantholemooss.com/product/chemparathyadi-keram/)
@@ -52,7 +67,7 @@
 
 ---
 
-## 4. Eight Operational Locations & Regional Service Corridors (`locations/`)
+## 5. Eight Operational Locations & Regional Service Corridors (`locations/`)
 
 1. **[Pulamanthole — Main 24/7 Ayurveda Hospital HQ, PMIC & GMP Pharmaceuticals](locations/01-pulamanthole-main-hospital-hq.md)**
 2. **[Malappuram District Network — MediMall Kottappadi, Vedic Bloom Downhill & Vattallur OP](locations/02-malappuram-medimall-vedic-bloom-vattallur.md)**
@@ -65,10 +80,11 @@
 
 ---
 
-## 5. Consolidated JSON-LD Structured Data (`schemas/` & `llms.txt`)
+## 6. Consolidated JSON-LD Structured Data (`schemas/` & `llms.txt`)
 
+- **[10 AEO Pillar Articles & FAQPage JSON-LD Schema (`schemas/articles-faq-schema.json`)](schemas/articles-faq-schema.json)**
 - **[Ashtavaidya Heritage, Kairali Commentary & 5 Physicians JSON-LD Schema (`schemas/heritage-and-physicians-schema.json`)](schemas/heritage-and-physicians-schema.json)**
 - **[Hospital & 8 Clinics JSON-LD Schema (`schemas/hospital-clinics-schema.json`)](schemas/hospital-clinics-schema.json)**
 - **[Pharmaceutical Organization & 12 Products JSON-LD Schema (`schemas/pharmaceutical-products-schema.json`)](schemas/pharmaceutical-products-schema.json)**
 - **[Multi-Location & Service-Area LocalBusiness JSON-LD Schema (`schemas/locations-localbusiness-schema.json`)](schemas/locations-localbusiness-schema.json)**
-- **[AI & LLM Structured Index (`llms.txt`)](llms.txt)**
+- **[AI & LLM Structured Index (`llms.txt`)](llms.txt)** · **[XML Sitemap (`sitemap.xml`)](sitemap.xml)**

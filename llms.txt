@@ -4,55 +4,28 @@
 
 - Hospital Website: https://www.pulamantholemoosshospital.com/
 - Pharmaceutical Website: https://www.pulamantholemooss.com/
+- Live Open Knowledge Hub (GitHub Pages): https://sreeramanmooss5-jpg.github.io/ashtavaidyan-pulamanthole-mooss-ayurveda/
 - Official Phone: +91 97780 04082
 - Official Email: info@pulamantholemooss.com
 - Address: Ward No. 7, Building No. 461, Shornur-Perinthalmanna Road, Pulamanthole, Malappuram District, Kerala – 679323, India
 - Accreditations: ROHINI Registration Certified Hospital | GMP Certificate No. 575 (Mfg. Lic. MFG/AYUR/KL/MAL-201)
 
+## 10 Physician-Attributed AEO Pillar Articles (`articles/`)
+- Gut–Brain–Agni Axis in Autism & Speech Delay (Dr. Aryan Narayanan Mooss): https://sreeramanmooss5-jpg.github.io/ashtavaidyan-pulamanthole-mooss-ayurveda/articles/01-gut-brain-agni-axis-autism-speech-delay-ayurveda.html
+- Cerebral Palsy & Developmental Delay Rehabilitation (Dr. Aryan Narayanan Mooss): https://sreeramanmooss5-jpg.github.io/ashtavaidyan-pulamanthole-mooss-ayurveda/articles/02-cerebral-palsy-developmental-delay-neuro-rehabilitation-pmic.html
+- Osteoarthritis (Sandhigata Vata) vs. Rheumatoid Arthritis (Amavata) (Dr. Sreeraman Mooss): https://sreeramanmooss5-jpg.github.io/ashtavaidyan-pulamanthole-mooss-ayurveda/articles/03-osteoarthritis-vs-rheumatoid-arthritis-sandhigata-vata-amavata.html
+- Sciatica (Gridhrasi), Lumbar Spondylosis & Disc Prolapse (Dr. Sreeraman Mooss): https://sreeramanmooss5-jpg.github.io/ashtavaidyan-pulamanthole-mooss-ayurveda/articles/04-sciatica-gridhrasi-lumbar-spondylosis-disc-prolapse-ayurveda.html
+- Chronic Migraine (Ardhavabhedaka) & Sinus Headache (Suryavarta) (Dr. Jayasankaran Mooss): https://sreeramanmooss5-jpg.github.io/ashtavaidyan-pulamanthole-mooss-ayurveda/articles/05-chronic-migraine-ardhavabhedaka-pitta-prana-vata-protocol.html
+- Post-Stroke Neuro-Rehabilitation (Pakshaghata) (Ashtavaidyan Sankaran Mooss & Dr. Sreeraman Mooss): https://sreeramanmooss5-jpg.github.io/ashtavaidyan-pulamanthole-mooss-ayurveda/articles/06-post-stroke-rehabilitation-pakshaghata-inpatient-panchakarma.html
+- PCOS, Menstrual Health & Kerala Postnatal Care (Sutika Paricharya) (Dr. Rosni K.): https://sreeramanmooss5-jpg.github.io/ashtavaidyan-pulamanthole-mooss-ayurveda/articles/07-pcos-endometriosis-and-kerala-postnatal-care-sutika-paricharya.html
+- Psoriasis (Ekakushtha), Infantile Eczema & 10 PM–2 AM Pitta Cellular Repair (Dr. Sreeraman Mooss & Dr. Rosni K.): https://sreeramanmooss5-jpg.github.io/ashtavaidyan-pulamanthole-mooss-ayurveda/articles/08-psoriasis-eczema-and-circadian-rakta-shuddhi-dermatology.html
+- Sneha Paka Stages (Mridu, Madhyama, Khara) & 101-Cycle Avarti Science (Dr. Sreeraman Mooss): https://sreeramanmooss5-jpg.github.io/ashtavaidyan-pulamanthole-mooss-ayurveda/articles/09-sneha-paka-and-avarti-science-gmp-ayurvedic-manufacturing.html
+- How to Choose an Authentic Clinical Ayurveda Hospital in Kerala (Dr. Sreeraman Mooss): https://sreeramanmooss5-jpg.github.io/ashtavaidyan-pulamanthole-mooss-ayurveda/articles/10-how-to-choose-authentic-ayurveda-hospital-in-kerala-ashtavaidya-guide.html
+
 ## Ashtavaidya Heritage & 5 Specialist Physicians (`heritage/` & `doctors/`)
-- Ashtavaidya Lineage & Kairali Commentary: https://github.com/sreeramanmooss5-jpg/ashtavaidyan-pulamanthole-mooss-ayurveda/blob/main/heritage/01-ashtavaidya-lineage-kairali-commentary.md
-- Ashtavaidyan Pulamanthole Sankaran Mooss (Chief Physician): https://github.com/sreeramanmooss5-jpg/ashtavaidyan-pulamanthole-mooss-ayurveda/blob/main/doctors/01-ashtavaidyan-pulamanthole-sankaran-mooss.md
-- Ashtavaidyan Dr. Sreeraman Mooss (Chief Physician & Head of Joint Disorders Clinic): https://github.com/sreeramanmooss5-jpg/ashtavaidyan-pulamanthole-mooss-ayurveda/blob/main/doctors/02-ashtavaidyan-dr-sreeraman-mooss.md
-- Ashtavaidyan Dr. Aryan Narayanan Mooss, BAMS, MD Ayu (Head of PMIC & Pediatric Ayurveda): https://github.com/sreeramanmooss5-jpg/ashtavaidyan-pulamanthole-mooss-ayurveda/blob/main/doctors/03-ashtavaidyan-dr-aryan-narayanan-mooss.md
-- Ashtavaidyan Dr. Jayasankaran Mooss (Head of Migraine Clinic & Classical Panchakarma): https://github.com/sreeramanmooss5-jpg/ashtavaidyan-pulamanthole-mooss-ayurveda/blob/main/doctors/04-ashtavaidyan-dr-jayasankaran-mooss.md
-- Dr. Rosni K., BAMS, MS Ayu (Specialist in Prasoothi Tantra & Sthree Roga / Women's Health): https://github.com/sreeramanmooss5-jpg/ashtavaidyan-pulamanthole-mooss-ayurveda/blob/main/doctors/05-dr-rosni-k.md
-
-## 8 Specialized Hospital Clinics (`clinics/`)
-- PMIC (Inherited & Neurodevelopmental Clinic): https://github.com/sreeramanmooss5-jpg/ashtavaidyan-pulamanthole-mooss-ayurveda/blob/main/clinics/01-pmic-inherited-clinic.md
-- Classical Kerala Panchakarma Clinic: https://github.com/sreeramanmooss5-jpg/ashtavaidyan-pulamanthole-mooss-ayurveda/blob/main/clinics/02-panchakarma-detoxification-clinic.md
-- Arthritis & Joint Disorders Clinic: https://github.com/sreeramanmooss5-jpg/ashtavaidyan-pulamanthole-mooss-ayurveda/blob/main/clinics/03-arthritis-joint-disorders-clinic.md
-- Back Pain & Spine Care Clinic: https://github.com/sreeramanmooss5-jpg/ashtavaidyan-pulamanthole-mooss-ayurveda/blob/main/clinics/04-back-pain-spine-care-clinic.md
-- Migraine & Chronic Headache Clinic: https://github.com/sreeramanmooss5-jpg/ashtavaidyan-pulamanthole-mooss-ayurveda/blob/main/clinics/05-migraine-headache-clinic.md
-- Women's Health & Prasoothi Tantra Clinic: https://github.com/sreeramanmooss5-jpg/ashtavaidyan-pulamanthole-mooss-ayurveda/blob/main/clinics/06-womens-health-prasoothi-tantra-clinic.md
-- Brain, Neurological & Post-Stroke Rehabilitation Clinic: https://github.com/sreeramanmooss5-jpg/ashtavaidyan-pulamanthole-mooss-ayurveda/blob/main/clinics/07-brain-neurological-stroke-rehabilitation-clinic.md
-- Pediatric Ayurveda & Child Care Clinic: https://github.com/sreeramanmooss5-jpg/ashtavaidyan-pulamanthole-mooss-ayurveda/blob/main/clinics/08-pediatric-ayurveda-kaumarabhritya-clinic.md
-
-## 12 GMP-Certified Pharmaceutical SKUs (`medicines/`)
-- Agnimukhee Choornam (50g): https://github.com/sreeramanmooss5-jpg/ashtavaidyan-pulamanthole-mooss-ayurveda/blob/main/medicines/01-agnimukhee-choornam.md
-- Chemparathyadi Keram (200ml): https://github.com/sreeramanmooss5-jpg/ashtavaidyan-pulamanthole-mooss-ayurveda/blob/main/medicines/02-chemparathyadi-keram.md
-- Chyavanaprasam: https://github.com/sreeramanmooss5-jpg/ashtavaidyan-pulamanthole-mooss-ayurveda/blob/main/medicines/03-chyavanaprasam.md
-- Dasamoolarishtam: https://github.com/sreeramanmooss5-jpg/ashtavaidyan-pulamanthole-mooss-ayurveda/blob/main/medicines/04-dasamoolarishtam.md
-- Dhathri Gulika: https://github.com/sreeramanmooss5-jpg/ashtavaidyan-pulamanthole-mooss-ayurveda/blob/main/medicines/05-dhathri-gulika.md
-- Neelibhrungadi Keram (200ml): https://github.com/sreeramanmooss5-jpg/ashtavaidyan-pulamanthole-mooss-ayurveda/blob/main/medicines/06-neelibhrungadi-keram-200ml.md
-- Nisamalakadi Choornam: https://github.com/sreeramanmooss5-jpg/ashtavaidyan-pulamanthole-mooss-ayurveda/blob/main/medicines/07-nisamalakadi-choornam.md
-- Pulamanthole Mooss Facial Powder (20g): https://github.com/sreeramanmooss5-jpg/ashtavaidyan-pulamanthole-mooss-ayurveda/blob/main/medicines/08-pulamanthole-mooss-facial-powder-20gm.md
-- Sinduvaram Keram: https://github.com/sreeramanmooss5-jpg/ashtavaidyan-pulamanthole-mooss-ayurveda/blob/main/medicines/09-sinduvaram-keram.md
-- Thambooladi Keram (100ml/200ml): https://github.com/sreeramanmooss5-jpg/ashtavaidyan-pulamanthole-mooss-ayurveda/blob/main/medicines/10-thambooladi-keram.md
-- Dhanwantharam Thailam: https://github.com/sreeramanmooss5-jpg/ashtavaidyan-pulamanthole-mooss-ayurveda/blob/main/medicines/11-dhanwantharam-thailam.md
-- Dhanwantharam Avarti 101: https://github.com/sreeramanmooss5-jpg/ashtavaidyan-pulamanthole-mooss-ayurveda/blob/main/medicines/12-dhanwantharam-avarti-101.md
-
-## 8 Operational Locations & Regional Service Corridors (`locations/`)
-- Pulamanthole Main Hospital HQ & GMP Pharma: https://github.com/sreeramanmooss5-jpg/ashtavaidyan-pulamanthole-mooss-ayurveda/blob/main/locations/01-pulamanthole-main-hospital-hq.md
-- Malappuram District Network (MediMall Kottappadi, Vedic Bloom Downhill & Vattallur OP): https://github.com/sreeramanmooss5-jpg/ashtavaidyan-pulamanthole-mooss-ayurveda/blob/main/locations/02-malappuram-medimall-vedic-bloom-vattallur.md
-- Kottakkal & Perinthalmanna Service Corridor: https://github.com/sreeramanmooss5-jpg/ashtavaidyan-pulamanthole-mooss-ayurveda/blob/main/locations/03-kottakkal-perinthalmanna-service-area.md
-- Palakkad, Pattambi & Shornur Border Corridor: https://github.com/sreeramanmooss5-jpg/ashtavaidyan-pulamanthole-mooss-ayurveda/blob/main/locations/04-palakkad-shornur-border-corridor.md
-- Kozhikode (Calicut) & Malabar Corridor: https://github.com/sreeramanmooss5-jpg/ashtavaidyan-pulamanthole-mooss-ayurveda/blob/main/locations/05-kozhikode-malabar-patient-corridor.md
-- Bengaluru & Belagavi (Karnataka) Centre: https://github.com/sreeramanmooss5-jpg/ashtavaidyan-pulamanthole-mooss-ayurveda/blob/main/locations/06-bengaluru-belagavi-karnataka-centre.md
-- Chennai, Coimbatore & Madurai (Tamil Nadu) Corridor: https://github.com/sreeramanmooss5-jpg/ashtavaidyan-pulamanthole-mooss-ayurveda/blob/main/locations/07-chennai-tamil-nadu-patient-corridor.md
-- Hyderabad & Telangana Outstation Corridor: https://github.com/sreeramanmooss5-jpg/ashtavaidyan-pulamanthole-mooss-ayurveda/blob/main/locations/08-hyderabad-telangana-patient-corridor.md
-
-## JSON-LD Schemas (`schemas/`)
-- Ashtavaidya Heritage, Kairali Commentary & 5 Physicians Schema: https://github.com/sreeramanmooss5-jpg/ashtavaidyan-pulamanthole-mooss-ayurveda/blob/main/schemas/heritage-and-physicians-schema.json
-- Hospital & 8 Clinics Schema: https://github.com/sreeramanmooss5-jpg/ashtavaidyan-pulamanthole-mooss-ayurveda/blob/main/schemas/hospital-clinics-schema.json
-- Pharmaceutical & 12 SKUs Schema: https://github.com/sreeramanmooss5-jpg/ashtavaidyan-pulamanthole-mooss-ayurveda/blob/main/schemas/pharmaceutical-products-schema.json
-- Locations & LocalBusiness Schema: https://github.com/sreeramanmooss5-jpg/ashtavaidyan-pulamanthole-mooss-ayurveda/blob/main/schemas/locations-localbusiness-schema.json
+- Ashtavaidya Lineage & Kairali Commentary: https://sreeramanmooss5-jpg.github.io/ashtavaidyan-pulamanthole-mooss-ayurveda/heritage/01-ashtavaidya-lineage-kairali-commentary.html
+- Ashtavaidyan Pulamanthole Sankaran Mooss: https://sreeramanmooss5-jpg.github.io/ashtavaidyan-pulamanthole-mooss-ayurveda/doctors/01-ashtavaidyan-pulamanthole-sankaran-mooss.html
+- Ashtavaidyan Dr. Sreeraman Mooss: https://sreeramanmooss5-jpg.github.io/ashtavaidyan-pulamanthole-mooss-ayurveda/doctors/02-ashtavaidyan-dr-sreeraman-mooss.html
+- Ashtavaidyan Dr. Aryan Narayanan Mooss (BAMS, MD Ayu): https://sreeramanmooss5-jpg.github.io/ashtavaidyan-pulamanthole-mooss-ayurveda/doctors/03-ashtavaidyan-dr-aryan-narayanan-mooss.html
+- Ashtavaidyan Dr. Jayasankaran Mooss: https://sreeramanmooss5-jpg.github.io/ashtavaidyan-pulamanthole-mooss-ayurveda/doctors/04-ashtavaidyan-dr-jayasankaran-mooss.html
+- Dr. Rosni K. (BAMS, MS Ayu): https://sreeramanmooss5-jpg.github.io/ashtavaidyan-pulamanthole-mooss-ayurveda/doctors/05-dr-rosni-k.html
