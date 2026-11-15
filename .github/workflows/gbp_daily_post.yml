@@ -1,0 +1,25 @@
+name: Daily Google Business Profile Auto-Post
+
+on:
+  schedule:
+    - cron: '0 4 * * *' # 09:30 AM IST daily
+  workflow_dispatch:
+
+jobs:
+  publish-gbp:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: pip install requests
+      - name: Publish today's Google Business Profile updates
+        env:
+          GBP_CLIENT_ID: ${{ secrets.GBP_CLIENT_ID }}
+          GBP_CLIENT_SECRET: ${{ secrets.GBP_CLIENT_SECRET }}
+          GBP_REFRESH_TOKEN: ${{ secrets.GBP_REFRESH_TOKEN }}
+        run: python scripts/gbp_daily_post.py
