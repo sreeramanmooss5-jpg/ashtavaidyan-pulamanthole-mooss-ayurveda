@@ -1,0 +1,51 @@
+name: Patient-First Daily Autopost
+
+on:
+  schedule:
+    - cron: '30 3 * * *' # 09:00 AM IST daily
+  workflow_dispatch:
+
+jobs:
+  autopost:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Dispatch today's patient-first item
+        env:
+          FB_PAGE_ID: ${{ secrets.FB_PAGE_ID }}
+          FB_PAGE_ACCESS_TOKEN: ${{ secrets.FB_PAGE_ACCESS_TOKEN }}
+        run: |
+          python3 -c "
+          import json, os, urllib.request, urllib.parse
+          from datetime import datetime, timezone, timedelta
+
+          ist_now = datetime.now(timezone.utc) + timedelta(hours=5, minutes=30)
+          today_str = ist_now.strftime('%Y-%m-%d')
+          with open('data/patient_first_hospital_queue.json', encoding='utf-8') as f:
+              items = json.load(f)
+          matches = [x for x in items if x.get('date') == today_str]
+          if not matches:
+              print(f'No queue item for {today_str}')
+              raise SystemExit(0)
+          item = matches[0]
+          print('Prepared item:', item['date'], item['topic'])
+          page_id = os.environ.get('FB_PAGE_ID')
+          token = os.environ.get('FB_PAGE_ACCESS_TOKEN')
+          if page_id and token:
+              url = f'https://graph.facebook.com/v21.0/{page_id}/feed'
+              data = urllib.parse.urlencode({
+                  'message': item['message'],
+                  'link': item['link'],
+                  'access_token': token
+              }).encode('utf-8')
+              req = urllib.request.Request(url, data=data, method='POST')
+              with urllib.request.urlopen(req, timeout=30) as resp:
+                  print('FB response:', resp.read().decode('utf-8'))
+          else:
+              print('Secrets not configured; skipping direct feed POST.')
+          "
