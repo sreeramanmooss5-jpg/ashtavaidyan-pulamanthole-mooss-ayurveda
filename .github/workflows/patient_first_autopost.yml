@@ -1,4 +1,4 @@
-name: Patient-First Daily Autopost
+name: Patient-First Multi-Profile Autopost
 
 on:
   schedule:
@@ -15,10 +15,11 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - name: Dispatch today's patient-first item
+      - name: Dispatch today's multi-profile patient-first items
         env:
           FB_PAGE_ID: ${{ secrets.FB_PAGE_ID }}
           FB_PAGE_ACCESS_TOKEN: ${{ secrets.FB_PAGE_ACCESS_TOKEN }}
+          IG_ACCOUNT_MAP_JSON: ${{ secrets.IG_ACCOUNT_MAP_JSON }}
         run: |
           python3 -c "
           import json, os, urllib.request, urllib.parse
@@ -26,26 +27,38 @@ jobs:
 
           ist_now = datetime.now(timezone.utc) + timedelta(hours=5, minutes=30)
           today_str = ist_now.strftime('%Y-%m-%d')
-          with open('data/patient_first_hospital_queue.json', encoding='utf-8') as f:
+          with open('data/all_connected_profiles_queue.json', encoding='utf-8') as f:
               items = json.load(f)
-          matches = [x for x in items if x.get('date') == today_str]
-          if not matches:
-              print(f'No queue item for {today_str}')
-              raise SystemExit(0)
-          item = matches[0]
-          print('Prepared item:', item['date'], item['topic'])
-          page_id = os.environ.get('FB_PAGE_ID')
-          token = os.environ.get('FB_PAGE_ACCESS_TOKEN')
-          if page_id and token:
-              url = f'https://graph.facebook.com/v21.0/{page_id}/feed'
-              data = urllib.parse.urlencode({
-                  'message': item['message'],
-                  'link': item['link'],
-                  'access_token': token
-              }).encode('utf-8')
-              req = urllib.request.Request(url, data=data, method='POST')
-              with urllib.request.urlopen(req, timeout=30) as resp:
-                  print('FB response:', resp.read().decode('utf-8'))
+
+          today_items = [x for x in items if x.get('date') == today_str]
+          print(f'Found {len(today_items)} queued items for {today_str} (IST)')
+          for it in today_items:
+              print(' -', it.get('queue_id'), '|', it.get('account'), '|', it.get('topic'))
+
+          fb_page_id = os.environ.get('FB_PAGE_ID')
+          fb_token = os.environ.get('FB_PAGE_ACCESS_TOKEN')
+          hosp_items = [x for x in today_items if x.get('vertical') == 'Hospital']
+          if fb_page_id and fb_token and hosp_items:
+              for h in hosp_items:
+                  if h.get('fb_scheduled_id'):
+                      print('Skipping FB immediate post because already scheduled in Meta:', h.get('fb_scheduled_id'))
+                      continue
+                  url = f'https://graph.facebook.com/v21.0/{fb_page_id}/feed'
+                  data = urllib.parse.urlencode({
+                      'message': h['caption'],
+                      'link': 'https://pulamantholemoosshospital.com',
+                      'access_token': fb_token
+                  }).encode('utf-8')
+                  req = urllib.request.Request(url, data=data, method='POST')
+                  with urllib.request.urlopen(req, timeout=30) as resp:
+                      print('FB feed response:', resp.read().decode('utf-8'))
           else:
-              print('Secrets not configured; skipping direct feed POST.')
+              print('FB secrets not set or no unscheduled FB item for today.')
+
+          ig_map_raw = os.environ.get('IG_ACCOUNT_MAP_JSON')
+          if ig_map_raw:
+              ig_map = json.loads(ig_map_raw)
+              print('IG account map keys configured:', list(ig_map.keys()))
+          else:
+              print('IG_ACCOUNT_MAP_JSON not set; items remain queued in data/all_connected_profiles_queue.json.')
           "
