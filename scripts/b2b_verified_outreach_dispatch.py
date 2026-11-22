@@ -255,9 +255,12 @@ def run(live_send: bool = False):
     client_id = os.environ.get("GMAIL_CLIENT_ID", "").strip()
     client_secret = os.environ.get("GMAIL_CLIENT_SECRET", "").strip()
     refresh_token = os.environ.get("GMAIL_REFRESH_TOKEN", "").strip()
+    send_refresh_token = os.environ.get("GMAIL_SEND_REFRESH_TOKEN", "").strip()
     sender = os.environ.get("GMAIL_SENDER_EMAIL", "srdayurveda@gmail.com").strip()
     if not all([spreadsheet_id, service_json, client_id, client_secret, refresh_token]):
-        raise RuntimeError("Missing CRM or Gmail OAuth configuration; dispatcher fails closed.")
+        raise RuntimeError("Missing CRM or read-only Gmail OAuth configuration; dispatcher fails closed.")
+    if live_send and not send_refresh_token:
+        raise RuntimeError("Live dispatch requires a separately authorized GMAIL_SEND_REFRESH_TOKEN with gmail.send scope.")
 
     daily_limit = max(0, min(int(os.environ.get("B2B_DAILY_SEND_LIMIT", "10")), MAX_DAILY_SEND_LIMIT))
     sheets = GoogleSheetsClient(service_json)
@@ -293,12 +296,15 @@ def run(live_send: bool = False):
         return
 
     send_creds = Credentials(
-        token=None, refresh_token=refresh_token,
+        token=None, refresh_token=send_refresh_token,
         token_uri="https://oauth2.googleapis.com/token",
         client_id=client_id, client_secret=client_secret,
         scopes=["https://www.googleapis.com/auth/gmail.send"],
     )
     gmail = build("gmail", "v1", credentials=send_creds, cache_discovery=False)
+    profile = gmail.users().getProfile(userId="me").execute()
+    if norm(profile.get("emailAddress")) != norm(sender):
+        raise RuntimeError("Authenticated Gmail sender does not match GMAIL_SENDER_EMAIL; refusing to send.")
     idx = header_index(crm[0] if crm else [])
     sent = 0
     for lead in plan["eligible"]:
