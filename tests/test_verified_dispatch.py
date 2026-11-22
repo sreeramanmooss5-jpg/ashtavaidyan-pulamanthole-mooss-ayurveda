@@ -77,3 +77,15 @@ def test_unsubscribe_complaint_and_bounce_are_persisted_once():
     assert [row[1] for row in sheets.appended[2]] == ["stop@example.com", "complaint@example.com", "bounce@example.com"]
     count_again = persist_inbox_suppressions(sheets, "sheet-1", [headers, ["S1", "stop@example.com"]], classified[:1], "2026-11-22T10:00:00+05:30")
     assert count_again == 0
+
+def test_daily_limit_counts_messages_already_sent_today():
+    crm = [
+        HEADERS,
+        ["L1", "Sent Today", "sent@example.com", "Verified", "CONTACTED", "2026-11-22T08:00:00+05:30", "", ""],
+        ["L2", "Eligible", "eligible@example.com", "Verified", "Qualified", "", "", ""],
+    ]
+    result = build_dispatch_plan(crm, [["Suppression_ID", "Email_or_Domain"]], [], [], dt.date(2026, 11, 22), 1)
+    assert result["sent_today_already"] == 1
+    assert result["eligible"] == []
+    assert result["daily_limit"] == 0
+
