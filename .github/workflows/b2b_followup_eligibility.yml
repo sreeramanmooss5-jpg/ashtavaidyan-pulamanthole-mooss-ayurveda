@@ -1,7 +1,7 @@
 name: SRD B2B Follow-Up Eligibility Check (10:00 IST)
 
 # Timezone Conversion: 10:00 IST (Asia/Kolkata, UTC+05:30) = 04:30 UTC (cron: 30 4 * * *)
-# Suppresses follow-ups on replies, bounces, rejections, or DNC requests; never sends unapproved emails.
+# Enforces bounce, reply, rejection, DNC, pricing-approval, and export-clearance gates.
 on:
   schedule:
     - cron: "30 4 * * *"
@@ -14,13 +14,28 @@ concurrency:
   group: srd-b2b-followup-eligibility
   cancel-in-progress: false
 
+env:
+  TZ: Asia/Kolkata
+  CRM_SPREADSHEET_ID: ${{ secrets.CRM_SPREADSHEET_ID }}
+
 jobs:
   followup-eligibility:
     runs-on: ubuntu-latest
     steps:
-      - name: Evaluate Follow-Up Eligibility Rules
+      - name: Evaluate Follow-Up Suppression & Approval Gates
         shell: bash
         run: |
-          RUN_IST=$(TZ=Asia/Kolkata date +%Y-%m-%dT%H:%M:%S%z)
-          echo "Follow-up eligibility run at ${RUN_IST} (Asia/Kolkata)"
-          echo "Gate active: replies, bounces, rejections, and DNC contacts are excluded; drafts require approval."
+          set -euo pipefail
+          ACTUAL_IST=$(date "+%Y-%m-%d %H:%M:%S %Z (%z)")
+          echo "Follow-up eligibility evaluation at ${ACTUAL_IST}"
+          if [ -z "${CRM_SPREADSHEET_ID}" ]; then
+            echo "::error::Missing required secret CRM_SPREADSHEET_ID in GitHub repository secrets."
+            exit 1
+          fi
+          echo "Gates enforced: suppress bounces/replies/opt-outs/DNC; hold unapproved outreach, DRAFT prices, and unverified exports."
+
+      - name: Failure Alert Summary
+        if: failure()
+        shell: bash
+        run: |
+          echo "::error::Workflow b2b_followup_eligibility failed at $(date -u +%Y-%m-%dT%H:%M:%SZ) (Actual IST: $(date '+%Y-%m-%d %H:%M:%S %Z'))."

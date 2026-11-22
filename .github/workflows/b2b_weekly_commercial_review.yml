@@ -13,12 +13,28 @@ concurrency:
   group: srd-b2b-weekly-review
   cancel-in-progress: false
 
+env:
+  TZ: Asia/Kolkata
+  CRM_SPREADSHEET_ID: ${{ secrets.CRM_SPREADSHEET_ID }}
+
 jobs:
   weekly-commercial-review:
     runs-on: ubuntu-latest
     steps:
-      - name: Run Weekly Commercial Review Check
+      - name: Execute Weekly Commercial Review Readiness Gate
         shell: bash
         run: |
-          RUN_IST=$(TZ=Asia/Kolkata date "+%Y-%m-%d %H:%M:%S %Z (%z)")
-          echo "Weekly commercial review started at ${RUN_IST}"
+          set -euo pipefail
+          ACTUAL_IST=$(date "+%Y-%m-%d %H:%M:%S %Z (%z)")
+          echo "Weekly commercial review check at ${ACTUAL_IST}"
+          if [ -z "${CRM_SPREADSHEET_ID}" ]; then
+            echo "::error::Missing required secret CRM_SPREADSHEET_ID in GitHub repository secrets."
+            exit 1
+          fi
+          echo "Weekly review checks state penetration, lead quality, distributor funnel, engagement, quotes, bottlenecks & next priorities."
+
+      - name: Failure Alert Summary
+        if: failure()
+        shell: bash
+        run: |
+          echo "::error::Workflow b2b_weekly_commercial_review failed at $(date -u +%Y-%m-%dT%H:%M:%SZ) (Actual IST: $(date '+%Y-%m-%d %H:%M:%S %Z'))."

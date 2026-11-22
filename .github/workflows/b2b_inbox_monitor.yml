@@ -15,16 +15,31 @@ concurrency:
   group: srd-b2b-inbox-monitor
   cancel-in-progress: false
 
+env:
+  TZ: Asia/Kolkata
+  GMAIL_SENDER_EMAIL: srdayurveda@gmail.com
+  GMAIL_CLIENT_ID: ${{ secrets.GMAIL_CLIENT_ID }}
+  GMAIL_CLIENT_SECRET: ${{ secrets.GMAIL_CLIENT_SECRET }}
+  GMAIL_REFRESH_TOKEN: ${{ secrets.GMAIL_REFRESH_TOKEN }}
+
 jobs:
   inbox-monitor:
     runs-on: ubuntu-latest
     steps:
-      - name: Check Gmail Credential Prerequisites
+      - name: Verify Gmail OAuth Secret Readiness
         shell: bash
         run: |
-          RUN_IST=$(TZ=Asia/Kolkata date +%Y-%m-%dT%H:%M:%S%z)
-          echo "Inbox monitor check at ${RUN_IST} for srdayurveda@gmail.com"
-          if [ -z "${GMAIL_CLIENT_ID:-}" ] || [ -z "${GMAIL_REFRESH_TOKEN:-}" ]; then
-            echo "PREREQUISITE_MISSING: Gmail API secrets not set in GitHub Actions; staged only, not production-ready for autonomous mailbox polling."
-            exit 0
+          set -euo pipefail
+          ACTUAL_IST=$(date "+%Y-%m-%d %H:%M:%S %Z (%z)")
+          echo "Inbox monitor check at ${ACTUAL_IST} for srdayurveda@gmail.com"
+          if [ -z "${GMAIL_CLIENT_ID}" ] || [ -z "${GMAIL_CLIENT_SECRET}" ] || [ -z "${GMAIL_REFRESH_TOKEN}" ]; then
+            echo "::error::Missing Gmail OAuth secrets (GMAIL_CLIENT_ID, GMAIL_CLIENT_SECRET, GMAIL_REFRESH_TOKEN). Configure them in GitHub Settings -> Secrets and variables -> Actions."
+            exit 1
           fi
+          echo "Gmail OAuth secret references present."
+
+      - name: Failure Alert Summary
+        if: failure()
+        shell: bash
+        run: |
+          echo "::error::Workflow b2b_inbox_monitor failed at $(date -u +%Y-%m-%dT%H:%M:%SZ) (Actual IST: $(date '+%Y-%m-%d %H:%M:%S %Z'))."

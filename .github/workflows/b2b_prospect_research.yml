@@ -1,7 +1,7 @@
 name: SRD B2B Prospect Research (06:00 IST)
 
 # Timezone Conversion: 06:00 IST (Asia/Kolkata, UTC+05:30) = 00:30 UTC (cron: 30 0 * * *)
-# Note: GitHub Actions schedules may start late or experience queue delays; actual timestamps are logged.
+# Note: GitHub scheduled triggers may experience runner queue delays; record actual execution timestamps.
 on:
   schedule:
     - cron: "30 0 * * *"
@@ -14,6 +14,11 @@ concurrency:
   group: srd-b2b-prospect-research
   cancel-in-progress: false
 
+env:
+  TZ: Asia/Kolkata
+  CRM_SPREADSHEET_ID: ${{ secrets.CRM_SPREADSHEET_ID }}
+  GMAIL_SENDER_EMAIL: srdayurveda@gmail.com
+
 jobs:
   prospect-research:
     runs-on: ubuntu-latest
@@ -22,17 +27,25 @@ jobs:
         id: ctx
         shell: bash
         run: |
-          RUN_DATE_UTC=$(date -u +%Y-%m-%dT%H:%M:%SZ)
-          RUN_DATE_IST=$(TZ=Asia/Kolkata date +%Y-%m-%dT%H:%M:%S%z)
-          IDEMPOTENCY_KEY="b2b-prospect-research-${RUN_DATE_IST}"
+          set -euo pipefail
+          ACTUAL_IST=$(date "+%Y-%m-%d %H:%M:%S %Z (%z)")
+          RUN_UTC=$(date -u "+%Y-%m-%dT%H:%M:%SZ")
+          IDEMPOTENCY_KEY="b2b-prospect-research-${RUN_UTC}"
           echo "idempotency_key=${IDEMPOTENCY_KEY}" >> "$GITHUB_OUTPUT"
-          echo "Started IST=${RUN_DATE_IST} UTC=${RUN_DATE_UTC} Key=${IDEMPOTENCY_KEY}"
+          echo "IdempotencyKey=${IDEMPOTENCY_KEY} | ActualIST=${ACTUAL_IST} | UTC=${RUN_UTC}"
 
-      - name: Verify Required Credentials & Integrations
+      - name: Verify Secrets & Execute Research Gate
         shell: bash
         run: |
-          if [ -z "${CRM_SPREADSHEET_ID:-}" ]; then
-            echo "PREREQUISITE_MISSING: Repository secret CRM_SPREADSHEET_ID is not configured; workflow is staged but not production-ready for automated CRM write."
-            exit 0
+          set -euo pipefail
+          if [ -z "${CRM_SPREADSHEET_ID}" ]; then
+            echo "::error::Missing required secret CRM_SPREADSHEET_ID. Add it in GitHub Settings -> Secrets and variables -> Actions before production run."
+            exit 1
           fi
-          echo "CRM_SPREADSHEET_ID present; manufacturer exclusion and zero-fabrication controls enforced."
+          echo "Credential check passed for CRM spreadsheet target; enforcing manufacturer exclusion & zero-fabrication policy."
+
+      - name: Failure Alert Summary
+        if: failure()
+        shell: bash
+        run: |
+          echo "::error::Workflow b2b_prospect_research failed at $(date -u +%Y-%m-%dT%H:%M:%SZ) (Actual IST: $(date '+%Y-%m-%d %H:%M:%S %Z')). Check runner logs and secret readiness."

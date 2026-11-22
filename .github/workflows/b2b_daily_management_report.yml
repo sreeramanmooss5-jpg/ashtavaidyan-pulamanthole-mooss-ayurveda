@@ -1,7 +1,7 @@
 name: SRD B2B Daily Management Report (19:00 IST)
 
 # Timezone Conversion: 19:00 IST (Asia/Kolkata, UTC+05:30) = 13:30 UTC (cron: 30 13 * * *)
-# Note: GitHub scheduled triggers may start slightly late; record actual execution timestamp in IST.
+# Note: GitHub scheduled triggers may start slightly late; log actual runner execution timestamp in IST.
 on:
   schedule:
     - cron: "30 13 * * *"
@@ -14,12 +14,28 @@ concurrency:
   group: srd-b2b-daily-report
   cancel-in-progress: false
 
+env:
+  TZ: Asia/Kolkata
+  CRM_SPREADSHEET_ID: ${{ secrets.CRM_SPREADSHEET_ID }}
+
 jobs:
   daily-management-report:
     runs-on: ubuntu-latest
     steps:
-      - name: Generate Daily Management Report Stamp
+      - name: Generate Daily Management Report Audit Stamp
         shell: bash
         run: |
-          ACTUAL_IST=$(TZ=Asia/Kolkata date "+%Y-%m-%d %H:%M:%S %Z (%z)")
-          echo "Target schedule: 19:00 IST | Actual runner timestamp: ${ACTUAL_IST}"
+          set -euo pipefail
+          ACTUAL_IST=$(date "+%Y-%m-%d %H:%M:%S %Z (%z)")
+          echo "Scheduled target: 19:00 IST | Actual execution timestamp: ${ACTUAL_IST}"
+          if [ -z "${CRM_SPREADSHEET_ID}" ]; then
+            echo "::error::Missing required secret CRM_SPREADSHEET_ID in GitHub repository secrets."
+            exit 1
+          fi
+          echo "CRM_SPREADSHEET_ID verified for reporting pipeline."
+
+      - name: Failure Alert Summary
+        if: failure()
+        shell: bash
+        run: |
+          echo "::error::Workflow b2b_daily_management_report failed at $(date -u +%Y-%m-%dT%H:%M:%SZ) (Actual IST: $(date '+%Y-%m-%d %H:%M:%S %Z'))."

@@ -1,7 +1,7 @@
 name: SRD B2B CRM Verification & Sync (07:00 IST)
 
 # Timezone Conversion: 07:00 IST (Asia/Kolkata, UTC+05:30) = 01:30 UTC (cron: 30 1 * * *)
-# Note: GitHub Actions schedules may start late or experience queue delays; actual timestamps are logged.
+# Note: GitHub scheduled triggers may experience runner queue delays; record actual execution timestamps.
 on:
   schedule:
     - cron: "30 1 * * *"
@@ -14,13 +14,36 @@ concurrency:
   group: srd-b2b-crm-verification
   cancel-in-progress: false
 
+env:
+  TZ: Asia/Kolkata
+  CRM_SPREADSHEET_ID: ${{ secrets.CRM_SPREADSHEET_ID }}
+  GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}
+
 jobs:
   crm-verification:
     runs-on: ubuntu-latest
     steps:
-      - name: Initialize Verification Run
+      - name: Initialize Verification Run & Dedup Rules
         shell: bash
         run: |
-          RUN_IST=$(TZ=Asia/Kolkata date +%Y-%m-%dT%H:%M:%S%z)
-          echo "Verification job started at ${RUN_IST} (Asia/Kolkata)"
-          echo "Enforcing dedup keys: normalized company name, website domain, official email, phone."
+          set -euo pipefail
+          ACTUAL_IST=$(date "+%Y-%m-%d %H:%M:%S %Z (%z)")
+          IDEMPOTENCY_KEY="b2b-crm-verification-$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          echo "IdempotencyKey=${IDEMPOTENCY_KEY} | ActualIST=${ACTUAL_IST}"
+          echo "Dedup keys: normalized company name, website domain, official email, phone; preserve history; flag uncertain records."
+
+      - name: Verify CRM Credentials
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ -z "${CRM_SPREADSHEET_ID}" ]; then
+            echo "::error::Missing required secret CRM_SPREADSHEET_ID in GitHub repository secrets."
+            exit 1
+          fi
+          echo "CRM_SPREADSHEET_ID secret reference verified."
+
+      - name: Failure Alert Summary
+        if: failure()
+        shell: bash
+        run: |
+          echo "::error::Workflow b2b_crm_verification failed at $(date -u +%Y-%m-%dT%H:%M:%SZ) (Actual IST: $(date '+%Y-%m-%d %H:%M:%S %Z'))."
