@@ -275,9 +275,12 @@ def run(live_send: bool = False):
         meta = reader.get_message_metadata(message["id"])
         headers = meta.get("headers", {})
         sender_address = extract_sender_address(headers.get("from", ""))
-        if sender_address and sender_address != sender.lower():
-            inbox_senders.append(sender_address)
         item = classify_message(headers.get("from", ""), headers.get("subject", ""), meta.get("snippet", ""))
+        # Only messages classified as an actual reply or procurement response
+        # should hold a prospect for human handling. The inbox contains unrelated
+        # correspondence too; treating every sender as a reply suppresses valid leads.
+        if sender_address and sender_address != sender.lower() and item.get("category") in {"reply", "procurement_request"}:
+            inbox_senders.append(sender_address)
         if item.get("category") in {"unsubscribe", "complaint", "hard_bounce"}:
             target = extract_sender_address(item.get("target_email", "")) or (item.get("target_email", "").lower() if EMAIL_RE.fullmatch(item.get("target_email", "").lower()) else "")
             item["target_email"] = target
