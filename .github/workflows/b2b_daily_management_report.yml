@@ -1,0 +1,25 @@
+name: SRD B2B Daily Management Report (19:00 IST)
+
+# Timezone Conversion: 19:00 IST (Asia/Kolkata, UTC+05:30) = 13:30 UTC (cron: 30 13 * * *)
+# Note: GitHub scheduled triggers may start slightly late; record actual execution timestamp in IST.
+on:
+  schedule:
+    - cron: "30 13 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: srd-b2b-daily-report
+  cancel-in-progress: false
+
+jobs:
+  daily-management-report:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate Daily Management Report Stamp
+        shell: bash
+        run: |
+          ACTUAL_IST=$(TZ=Asia/Kolkata date "+%Y-%m-%d %H:%M:%S %Z (%z)")
+          echo "Target schedule: 19:00 IST | Actual runner timestamp: ${ACTUAL_IST}"

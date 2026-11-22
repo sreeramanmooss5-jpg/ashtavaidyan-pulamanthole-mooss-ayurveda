@@ -1,0 +1,30 @@
+name: SRD B2B Inbox Monitor (09:00-19:00 IST Every 2h)
+
+# Timezone Conversion (Asia/Kolkata, UTC+05:30):
+# 09:00 IST = 03:30 UTC | 11:00 IST = 05:30 UTC | 13:00 IST = 07:30 UTC
+# 15:00 IST = 09:30 UTC | 17:00 IST = 11:30 UTC | 19:00 IST = 13:30 UTC
+on:
+  schedule:
+    - cron: "30 3,5,7,9,11,13 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: srd-b2b-inbox-monitor
+  cancel-in-progress: false
+
+jobs:
+  inbox-monitor:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Gmail Credential Prerequisites
+        shell: bash
+        run: |
+          RUN_IST=$(TZ=Asia/Kolkata date +%Y-%m-%dT%H:%M:%S%z)
+          echo "Inbox monitor check at ${RUN_IST} for srdayurveda@gmail.com"
+          if [ -z "${GMAIL_CLIENT_ID:-}" ] || [ -z "${GMAIL_REFRESH_TOKEN:-}" ]; then
+            echo "PREREQUISITE_MISSING: Gmail API secrets not set in GitHub Actions; staged only, not production-ready for autonomous mailbox polling."
+            exit 0
+          fi

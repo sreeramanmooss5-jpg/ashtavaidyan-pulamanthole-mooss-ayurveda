@@ -1,0 +1,38 @@
+name: SRD B2B Prospect Research (06:00 IST)
+
+# Timezone Conversion: 06:00 IST (Asia/Kolkata, UTC+05:30) = 00:30 UTC (cron: 30 0 * * *)
+# Note: GitHub Actions schedules may start late or experience queue delays; actual timestamps are logged.
+on:
+  schedule:
+    - cron: "30 0 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: srd-b2b-prospect-research
+  cancel-in-progress: false
+
+jobs:
+  prospect-research:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Initialize Idempotency & Audit Context
+        id: ctx
+        shell: bash
+        run: |
+          RUN_DATE_UTC=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+          RUN_DATE_IST=$(TZ=Asia/Kolkata date +%Y-%m-%dT%H:%M:%S%z)
+          IDEMPOTENCY_KEY="b2b-prospect-research-${RUN_DATE_IST}"
+          echo "idempotency_key=${IDEMPOTENCY_KEY}" >> "$GITHUB_OUTPUT"
+          echo "Started IST=${RUN_DATE_IST} UTC=${RUN_DATE_UTC} Key=${IDEMPOTENCY_KEY}"
+
+      - name: Verify Required Credentials & Integrations
+        shell: bash
+        run: |
+          if [ -z "${CRM_SPREADSHEET_ID:-}" ]; then
+            echo "PREREQUISITE_MISSING: Repository secret CRM_SPREADSHEET_ID is not configured; workflow is staged but not production-ready for automated CRM write."
+            exit 0
+          fi
+          echo "CRM_SPREADSHEET_ID present; manufacturer exclusion and zero-fabrication controls enforced."

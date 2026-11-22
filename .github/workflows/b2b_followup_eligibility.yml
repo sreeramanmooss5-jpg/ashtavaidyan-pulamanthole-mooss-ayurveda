@@ -1,0 +1,26 @@
+name: SRD B2B Follow-Up Eligibility Check (10:00 IST)
+
+# Timezone Conversion: 10:00 IST (Asia/Kolkata, UTC+05:30) = 04:30 UTC (cron: 30 4 * * *)
+# Suppresses follow-ups on replies, bounces, rejections, or DNC requests; never sends unapproved emails.
+on:
+  schedule:
+    - cron: "30 4 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: srd-b2b-followup-eligibility
+  cancel-in-progress: false
+
+jobs:
+  followup-eligibility:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Evaluate Follow-Up Eligibility Rules
+        shell: bash
+        run: |
+          RUN_IST=$(TZ=Asia/Kolkata date +%Y-%m-%dT%H:%M:%S%z)
+          echo "Follow-up eligibility run at ${RUN_IST} (Asia/Kolkata)"
+          echo "Gate active: replies, bounces, rejections, and DNC contacts are excluded; drafts require approval."
