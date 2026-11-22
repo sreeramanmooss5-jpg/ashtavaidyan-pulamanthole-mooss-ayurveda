@@ -77,3 +77,21 @@ class GoogleSheetsClient:
             )
 
         return self._call_with_retry(_op)
+
+    def append_values(self, spreadsheet_id: str, range_name: str, values: List[List[Any]], value_input_option: str = "USER_ENTERED") -> Dict[str, Any]:
+        """Append rows to a sheet without overwriting existing suppression records."""
+        def _op():
+            return (
+                self._service.spreadsheets()
+                .values()
+                .append(
+                    spreadsheetId=spreadsheet_id,
+                    range=range_name,
+                    valueInputOption=value_input_option,
+                    insertDataOption="INSERT_ROWS",
+                    body={"values": values},
+                )
+                .execute()
+            )
+
+        return self._call_with_retry(_op)
