@@ -99,7 +99,9 @@ def build_dispatch_plan(
     for row in reply_rows[1:] if len(reply_rows) > 1 else []:
         for value in row:
             replied.update(x.lower() for x in EMAIL_EXTRACT_RE.findall(str(value)))
-    limit = max(0, min(int(daily_limit), MAX_DAILY_SEND_LIMIT))
+    configured_limit = max(0, min(int(daily_limit), MAX_DAILY_SEND_LIMIT))
+    sent_today = sum(1 for row in crm_rows[1:] if parse_date(cell(row, idx, "Last_Email_Sent")) == today)
+    limit = max(0, configured_limit - sent_today)
     eligible, held = [], []
 
     for row_number, row in enumerate(crm_rows[1:], start=2):
@@ -150,6 +152,8 @@ def build_dispatch_plan(
         "held": held,
         "eligible_before_limit": len(eligible),
         "daily_limit": limit,
+        "configured_daily_limit": configured_limit,
+        "sent_today_already": sent_today,
     }
 
 
@@ -277,8 +281,10 @@ def run(live_send: bool = False):
         classified.append(item)
 
     observed_at = dt.datetime.now(TZ).isoformat()
-    added = persist_inbox_suppressions(sheets, spreadsheet_id, suppression, classified, observed_at)
-    suppression = sheets.get_values(spreadsheet_id, "Suppression_&_DNC_List!A1:H500")
+    added = 0
+    if live_send:
+        added = persist_inbox_suppressions(sheets, spreadsheet_id, suppression, classified, observed_at)
+        suppression = sheets.get_values(spreadsheet_id, "Suppression_&_DNC_List!A1:H500")
     plan = build_dispatch_plan(crm, suppression, replies, inbox_senders, dt.datetime.now(TZ).date(), daily_limit)
     log_event(logger, "INFO", "dispatch_plan_built", live_send=live_send, eligible_before_limit=plan.get("eligible_before_limit", 0), selected=len(plan["eligible"]), held=len(plan["held"]), daily_limit=daily_limit, new_suppressions=added)
 
