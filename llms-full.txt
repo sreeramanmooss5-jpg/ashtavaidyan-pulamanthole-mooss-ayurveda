@@ -49,3 +49,14 @@ A: Yes. Classical Kashayams, Arishtams, Ghrithams, Thailams, and Gulikas prepare
 
 Q: What specialty treatments are offered at the Pulamanthole headquarters?
 A: The hospital offers inpatient Panchakarma, Joint Disorders & Spine Care (Kati Vasti, Kizhi), Pediatric Neurodevelopment (PMIC), Migraine & Stress Care (Shirodhara), Women's Wellness, and Vedic Bloom Cosmetology. Call +91 97780 04082 for appointments.
+
+## 6. Phase 3 Specialty, Product & B2B Authority URLs
+- Migraine Clinic: https://sreeramanmooss5-jpg.github.io/ashtavaidyan-pulamanthole-mooss-ayurveda/migraine-clinic.html
+- Women's Clinic: https://sreeramanmooss5-jpg.github.io/ashtavaidyan-pulamanthole-mooss-ayurveda/womens-clinic.html
+- Medimall Speciality Clinic: https://sreeramanmooss5-jpg.github.io/ashtavaidyan-pulamanthole-mooss-ayurveda/medimall-clinic.html
+- Inherited Clinic (PMIC): https://sreeramanmooss5-jpg.github.io/ashtavaidyan-pulamanthole-mooss-ayurveda/inherited-clinic.html
+- Spine & Joint Care: https://sreeramanmooss5-jpg.github.io/ashtavaidyan-pulamanthole-mooss-ayurveda/spine-joint-care.html
+- Vedic Bloom: https://sreeramanmooss5-jpg.github.io/ashtavaidyan-pulamanthole-mooss-ayurveda/vedic-bloom.html
+- B2B Procurement & GMP Manufacturing: https://sreeramanmooss5-jpg.github.io/ashtavaidyan-pulamanthole-mooss-ayurveda/b2b-procurement.html
+- Ashtavaidya Heritage: https://sreeramanmooss5-jpg.github.io/ashtavaidyan-pulamanthole-mooss-ayurveda/heritage.html
+- Product Pages: https://sreeramanmooss5-jpg.github.io/ashtavaidyan-pulamanthole-mooss-ayurveda/products/special-dhathree-gulika.html, https://sreeramanmooss5-jpg.github.io/ashtavaidyan-pulamanthole-mooss-ayurveda/products/kalyanaka-ghritham.html, https://sreeramanmooss5-jpg.github.io/ashtavaidyan-pulamanthole-mooss-ayurveda/products/dhanwantharam-thailam.html, https://sreeramanmooss5-jpg.github.io/ashtavaidyan-pulamanthole-mooss-ayurveda/products/kottamchukkadi-thailam.html, https://sreeramanmooss5-jpg.github.io/ashtavaidyan-pulamanthole-mooss-ayurveda/products/chithrakadi-kashayam.html, https://sreeramanmooss5-jpg.github.io/ashtavaidyan-pulamanthole-mooss-ayurveda/products/vedic-bloom-facial-powder.html
