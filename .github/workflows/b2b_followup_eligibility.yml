@@ -1,7 +1,6 @@
 name: SRD B2B Follow-Up Eligibility Check (10:00 IST)
 
 # Timezone Conversion: 10:00 IST (Asia/Kolkata, UTC+05:30) = 04:30 UTC (cron: 30 4 * * *)
-# Enforces bounce, reply, rejection, DNC, pricing-approval, and export-clearance gates.
 on:
   schedule:
     - cron: "30 4 * * *"
@@ -16,26 +15,22 @@ concurrency:
 
 env:
   TZ: Asia/Kolkata
+  PYTHONPATH: .
   CRM_SPREADSHEET_ID: ${{ secrets.CRM_SPREADSHEET_ID }}
+  GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}
 
 jobs:
   followup-eligibility:
     runs-on: ubuntu-latest
     steps:
-      - name: Evaluate Follow-Up Suppression & Approval Gates
-        shell: bash
-        run: |
-          set -euo pipefail
-          ACTUAL_IST=$(date "+%Y-%m-%d %H:%M:%S %Z (%z)")
-          echo "Follow-up eligibility evaluation at ${ACTUAL_IST}"
-          if [ -z "${CRM_SPREADSHEET_ID}" ]; then
-            echo "::error::Missing required secret CRM_SPREADSHEET_ID in GitHub repository secrets."
-            exit 1
-          fi
-          echo "Gates enforced: suppress bounces/replies/opt-outs/DNC; hold unapproved outreach, DRAFT prices, and unverified exports."
-
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install Dependencies
+        run: pip install --disable-pip-version-check -q -r requirements.txt
+      - name: Run Follow-Up Eligibility Engine
+        run: python -m src.runner --workflow followup_eligibility
       - name: Failure Alert Summary
         if: failure()
-        shell: bash
-        run: |
-          echo "::error::Workflow b2b_followup_eligibility failed at $(date -u +%Y-%m-%dT%H:%M:%SZ) (Actual IST: $(date '+%Y-%m-%d %H:%M:%S %Z'))."
+        run: echo "::error::b2b_followup_eligibility failed at $(date -u +%Y-%m-%dT%H:%M:%SZ) (IST: $(date '+%Y-%m-%d %H:%M:%S %Z'))"

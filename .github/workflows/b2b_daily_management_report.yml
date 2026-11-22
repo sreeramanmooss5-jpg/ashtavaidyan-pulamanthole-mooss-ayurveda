@@ -1,7 +1,6 @@
 name: SRD B2B Daily Management Report (19:00 IST)
 
 # Timezone Conversion: 19:00 IST (Asia/Kolkata, UTC+05:30) = 13:30 UTC (cron: 30 13 * * *)
-# Note: GitHub scheduled triggers may start slightly late; log actual runner execution timestamp in IST.
 on:
   schedule:
     - cron: "30 13 * * *"
@@ -11,31 +10,27 @@ permissions:
   contents: read
 
 concurrency:
-  group: srd-b2b-daily-report
+  group: srd-b2b-daily-management-report
   cancel-in-progress: false
 
 env:
   TZ: Asia/Kolkata
+  PYTHONPATH: .
   CRM_SPREADSHEET_ID: ${{ secrets.CRM_SPREADSHEET_ID }}
+  GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}
 
 jobs:
   daily-management-report:
     runs-on: ubuntu-latest
     steps:
-      - name: Generate Daily Management Report Audit Stamp
-        shell: bash
-        run: |
-          set -euo pipefail
-          ACTUAL_IST=$(date "+%Y-%m-%d %H:%M:%S %Z (%z)")
-          echo "Scheduled target: 19:00 IST | Actual execution timestamp: ${ACTUAL_IST}"
-          if [ -z "${CRM_SPREADSHEET_ID}" ]; then
-            echo "::error::Missing required secret CRM_SPREADSHEET_ID in GitHub repository secrets."
-            exit 1
-          fi
-          echo "CRM_SPREADSHEET_ID verified for reporting pipeline."
-
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install Dependencies
+        run: pip install --disable-pip-version-check -q -r requirements.txt
+      - name: Run Daily Management Report Engine
+        run: python -m src.runner --workflow daily_report
       - name: Failure Alert Summary
         if: failure()
-        shell: bash
-        run: |
-          echo "::error::Workflow b2b_daily_management_report failed at $(date -u +%Y-%m-%dT%H:%M:%SZ) (Actual IST: $(date '+%Y-%m-%d %H:%M:%S %Z'))."
+        run: echo "::error::b2b_daily_management_report failed at $(date -u +%Y-%m-%dT%H:%M:%SZ) (IST: $(date '+%Y-%m-%d %H:%M:%S %Z'))"

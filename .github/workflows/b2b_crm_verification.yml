@@ -1,7 +1,6 @@
 name: SRD B2B CRM Verification & Sync (07:00 IST)
 
 # Timezone Conversion: 07:00 IST (Asia/Kolkata, UTC+05:30) = 01:30 UTC (cron: 30 1 * * *)
-# Note: GitHub scheduled triggers may experience runner queue delays; record actual execution timestamps.
 on:
   schedule:
     - cron: "30 1 * * *"
@@ -16,6 +15,7 @@ concurrency:
 
 env:
   TZ: Asia/Kolkata
+  PYTHONPATH: .
   CRM_SPREADSHEET_ID: ${{ secrets.CRM_SPREADSHEET_ID }}
   GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}
 
@@ -23,27 +23,14 @@ jobs:
   crm-verification:
     runs-on: ubuntu-latest
     steps:
-      - name: Initialize Verification Run & Dedup Rules
-        shell: bash
-        run: |
-          set -euo pipefail
-          ACTUAL_IST=$(date "+%Y-%m-%d %H:%M:%S %Z (%z)")
-          IDEMPOTENCY_KEY="b2b-crm-verification-$(date -u +%Y-%m-%dT%H:%M:%SZ)"
-          echo "IdempotencyKey=${IDEMPOTENCY_KEY} | ActualIST=${ACTUAL_IST}"
-          echo "Dedup keys: normalized company name, website domain, official email, phone; preserve history; flag uncertain records."
-
-      - name: Verify CRM Credentials
-        shell: bash
-        run: |
-          set -euo pipefail
-          if [ -z "${CRM_SPREADSHEET_ID}" ]; then
-            echo "::error::Missing required secret CRM_SPREADSHEET_ID in GitHub repository secrets."
-            exit 1
-          fi
-          echo "CRM_SPREADSHEET_ID secret reference verified."
-
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install Dependencies
+        run: pip install --disable-pip-version-check -q -r requirements.txt
+      - name: Run CRM Verification Engine
+        run: python -m src.runner --workflow crm_verification
       - name: Failure Alert Summary
         if: failure()
-        shell: bash
-        run: |
-          echo "::error::Workflow b2b_crm_verification failed at $(date -u +%Y-%m-%dT%H:%M:%SZ) (Actual IST: $(date '+%Y-%m-%d %H:%M:%S %Z'))."
+        run: echo "::error::b2b_crm_verification failed at $(date -u +%Y-%m-%dT%H:%M:%SZ) (IST: $(date '+%Y-%m-%d %H:%M:%S %Z'))"
