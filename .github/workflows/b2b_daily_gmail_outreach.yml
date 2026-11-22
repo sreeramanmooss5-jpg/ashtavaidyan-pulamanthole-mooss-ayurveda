@@ -1,34 +1,16 @@
 name: Daily Autonomous B2B Gmail Outreach & CRM Sync
 
+# DISABLED by repository owner approval on 2026-11-22.
+# Automatic outbound email is paused. Retained for audit/reference only.
+# No schedule and no executable job.
+
 on:
-  schedule:
-    # Runs automatically every day at 04:00 UTC (09:30 AM IST) and 11:00 UTC (04:30 PM IST)
-    - cron: '0 4,11 * * *'
   workflow_dispatch:
 
 jobs:
   b2b-gmail-outreach:
+    if: false
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-
-      - name: Set up Python 3.11
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-
-      - name: Install Google API Dependencies
-        run: |
-          pip install --upgrade pip
-          pip install google-api-python-client google-auth google-auth-oauthlib openpyxl
-
-      - name: Execute Zero-Approval B2B Outreach & Follow-Up Engine
-        env:
-          GMAIL_CLIENT_ID: ${{ secrets.GMAIL_CLIENT_ID }}
-          GMAIL_CLIENT_SECRET: ${{ secrets.GMAIL_CLIENT_SECRET }}
-          GMAIL_REFRESH_TOKEN: ${{ secrets.GMAIL_REFRESH_TOKEN }}
-          CRM_SPREADSHEET_ID: "1mHdueoG3_cridg1YxML19CvB6QqE4Y5yjnxDa27QIRc"
-          DAILY_BATCH_LIMIT: "40"
-        run: |
-          python3 scripts/b2b_daily_gmail_outreach.py
+      - name: Disabled
+        run: echo "This workflow is intentionally disabled. Use the human-approved outreach process instead."
