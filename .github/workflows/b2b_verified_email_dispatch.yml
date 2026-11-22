@@ -1,13 +1,23 @@
-name: SRD B2B Verified Outreach (Manual / Dry-Run by Default)
+name: SRD B2B Verified Outreach (Scheduled / Dry-Run on Changes)
 
 on:
   workflow_dispatch:
     inputs:
       live_send:
-        description: "Enable real outbound email (requires B2B_ALLOW_VERIFIED_SEND=true)"
+        description: "Send eligible verified B2B emails now (requires B2B_ALLOW_VERIFIED_SEND=true)"
         required: true
         type: boolean
         default: false
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/b2b_verified_email_dispatch.yml"
+      - "scripts/b2b_verified_outreach_dispatch.py"
+      - "src/inbox_monitor/engine.py"
+      - "tests/**"
+  schedule:
+    # 09:00 Asia/Kolkata, Monday-Friday (GitHub cron is UTC)
+    - cron: "30 3 * * 1-5"
 
 permissions:
   contents: read
@@ -32,7 +42,7 @@ env:
 jobs:
   verified-outreach:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -42,10 +52,13 @@ jobs:
         run: pip install --disable-pip-version-check -q -r requirements.txt
       - name: Run unit tests
         run: pytest -q
-      - name: Build verified dispatch plan (dry-run by default)
+      - name: Build read-only dispatch preview
+        run: python -m scripts.b2b_verified_outreach_dispatch
+      - name: Send eligible verified B2B emails
+        if: (github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && inputs.live_send == true)) && env.B2B_ALLOW_VERIFIED_SEND == 'true'
+        run: python -m scripts.b2b_verified_outreach_dispatch --live-send
+      - name: Fail closed if live sending was requested but disabled
+        if: (github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && inputs.live_send == true)) && env.B2B_ALLOW_VERIFIED_SEND != 'true'
         run: |
-          if [ "${{ inputs.live_send }}" = "true" ]; then
-            python -m scripts.b2b_verified_outreach_dispatch --live-send
-          else
-            python -m scripts.b2b_verified_outreach_dispatch
-          fi
+          echo "::error::Live sending requested but B2B_ALLOW_VERIFIED_SEND is not true."
+          exit 1
