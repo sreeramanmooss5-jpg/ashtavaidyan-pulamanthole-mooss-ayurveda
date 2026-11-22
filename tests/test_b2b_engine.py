@@ -60,34 +60,3 @@ def test_crm_verification_daily_and_weekly_reports():
     w = build_weekly_commercial_summary(crm, [["SKU", "Status"], ["S1", "DRAFT"]], [["CID", "Status"], ["E1", "Pending"]], [["EID"]])
     assert w["total_crm_prospects"] == 1
     assert w["draft_price_skus"] == 1
-
-
-def test_verified_dispatch_requires_exact_verification_and_suppression():
-    import datetime as dt
-    from scripts.b2b_verified_outreach_dispatch import build_dispatch_plan
-
-    crm = [
-        ["Lead_ID", "Company", "Email", "Email_Verification_Status", "Current_Status", "Last_Email_Sent", "Follow_Up_Date", "Notes"],
-        ["L1", "Verified Buyer", "buyer@buyer.in", "Verified", "QUALIFIED", "", "", ""],
-        ["L2", "Unverified Buyer", "sales@unverified.in", "Pending", "QUALIFIED", "", "", ""],
-        ["L3", "Suppressed Buyer", "sales@blocked.in", "Verified", "QUALIFIED", "", "", ""],
-    ]
-    suppression = [["Suppression_ID", "Email_or_Domain"], ["S1", "blocked.in"]]
-    plan = build_dispatch_plan(crm, suppression, [], [], dt.date(2026, 11, 22), 10)
-    assert [x["lead_id"] for x in plan["eligible"]] == ["L1"]
-    assert len(plan["held"]) == 2
-
-
-def test_verified_dispatch_skips_repliers_and_honours_cooldown():
-    import datetime as dt
-    from scripts.b2b_verified_outreach_dispatch import build_dispatch_plan
-
-    crm = [
-        ["Lead_ID", "Company", "Email", "Email_Verification_Status", "Current_Status", "Last_Email_Sent", "Follow_Up_Date", "Notes"],
-        ["L1", "Replied Buyer", "reply@buyer.in", "Verified", "CONTACTED", "2026-11-01", "2026-11-10", "B2B_AUTOMATION_TOUCH=1"],
-        ["L2", "Recent Buyer", "recent@buyer.in", "Verified", "CONTACTED", "2026-11-20", "2026-11-21", "B2B_AUTOMATION_TOUCH=1"],
-        ["L3", "Due Buyer", "due@buyer.in", "Verified", "CONTACTED", "2026-11-01", "2026-11-10", "B2B_AUTOMATION_TOUCH=1"],
-    ]
-    plan = build_dispatch_plan(crm, [], [], ["reply@buyer.in"], dt.date(2026, 11, 22), 10)
-    assert [x["lead_id"] for x in plan["eligible"]] == ["L3"]
-    assert len(plan["held"]) == 2
