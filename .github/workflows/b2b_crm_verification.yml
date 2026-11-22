@@ -46,4 +46,5 @@ jobs:
         run: python -m src.runner --workflow crm_verification
       - name: Failure Alert Summary
         if: failure()
-        run: echo "::error::b2b_crm_verification failed at $(date -u +%Y-%m-%dT%H:%M:%SZ) (IST: $(date '+%Y-%m-%d %H:%M:%S %Z'))"
+        run: |
+          echo "::error::b2b_crm_verification failed at $(date -u +%Y-%m-%dT%H:%M:%SZ) (IST: $(date '+%Y-%m-%d %H:%M:%S %Z'))"
