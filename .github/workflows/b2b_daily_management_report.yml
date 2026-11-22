@@ -46,4 +46,5 @@ jobs:
         run: python -m src.runner --workflow daily_report
       - name: Failure Alert Summary
         if: failure()
-        run: echo "::error::b2b_daily_management_report failed at $(date -u +%Y-%m-%dT%H:%M:%SZ) (IST: $(date '+%Y-%m-%d %H:%M:%S %Z'))"
+        run: |
+          echo "::error::b2b_daily_management_report failed at $(date -u +%Y-%m-%dT%H:%M:%SZ) (IST: $(date '+%Y-%m-%d %H:%M:%S %Z'))"
