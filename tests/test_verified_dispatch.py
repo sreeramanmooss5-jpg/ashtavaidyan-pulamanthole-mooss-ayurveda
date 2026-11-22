@@ -89,3 +89,12 @@ def test_daily_limit_counts_messages_already_sent_today():
     assert result["eligible"] == []
     assert result["daily_limit"] == 0
 
+
+
+def test_unrelated_inbox_senders_are_not_treated_as_prospect_replies():
+    from scripts.b2b_verified_outreach_dispatch import is_human_reply_category
+
+    assert is_human_reply_category("reply")
+    assert is_human_reply_category("procurement_request")
+    assert not is_human_reply_category("buyer_enquiry")
+    assert not is_human_reply_category("temp_delay")
