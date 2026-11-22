@@ -4,9 +4,16 @@ name: SRD B2B Inbox Monitor (09:00-19:00 IST Every 2h)
 # 09:00 IST = 03:30 UTC | 11:00 IST = 05:30 UTC | 13:00 IST = 07:30 UTC
 # 15:00 IST = 09:30 UTC | 17:00 IST = 11:30 UTC | 19:00 IST = 13:30 UTC
 on:
+  workflow_dispatch: {}
   schedule:
     - cron: "30 3,5,7,9,11,13 * * *"
-  workflow_dispatch: {}
+  push:
+    branches:
+      - main
+    paths:
+      - "src/**"
+      - "tests/**"
+      - ".github/workflows/b2b_inbox_monitor.yml"
 
 permissions:
   contents: read
@@ -35,6 +42,8 @@ jobs:
           python-version: "3.11"
       - name: Install Dependencies
         run: pip install --disable-pip-version-check -q -r requirements.txt
+      - name: Run Unit Tests
+        run: pytest -v
       - name: Run Inbox Monitor Engine (Read-Only, Zero Outbound Send)
         run: python -m src.runner --workflow inbox_monitor
       - name: Failure Alert Summary

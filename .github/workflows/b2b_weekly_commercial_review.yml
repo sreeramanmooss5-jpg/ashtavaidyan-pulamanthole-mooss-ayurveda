@@ -2,9 +2,16 @@ name: SRD B2B Weekly Commercial Review (Mon 09:00 IST)
 
 # Timezone Conversion: Monday 09:00 IST (Asia/Kolkata, UTC+05:30) = Monday 03:30 UTC (cron: 30 3 * * 1)
 on:
+  workflow_dispatch: {}
   schedule:
     - cron: "30 3 * * 1"
-  workflow_dispatch: {}
+  push:
+    branches:
+      - main
+    paths:
+      - "src/**"
+      - "tests/**"
+      - ".github/workflows/b2b_weekly_commercial_review.yml"
 
 permissions:
   contents: read
@@ -29,6 +36,8 @@ jobs:
           python-version: "3.11"
       - name: Install Dependencies
         run: pip install --disable-pip-version-check -q -r requirements.txt
+      - name: Run Unit Tests
+        run: pytest -v
       - name: Run Weekly Commercial Review Engine
         run: python -m src.runner --workflow weekly_review
       - name: Failure Alert Summary

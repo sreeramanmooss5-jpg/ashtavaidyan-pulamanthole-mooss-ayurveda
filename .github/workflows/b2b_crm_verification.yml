@@ -2,9 +2,16 @@ name: SRD B2B CRM Verification & Sync (07:00 IST)
 
 # Timezone Conversion: 07:00 IST (Asia/Kolkata, UTC+05:30) = 01:30 UTC (cron: 30 1 * * *)
 on:
+  workflow_dispatch: {}
   schedule:
     - cron: "30 1 * * *"
-  workflow_dispatch: {}
+  push:
+    branches:
+      - main
+    paths:
+      - "src/**"
+      - "tests/**"
+      - ".github/workflows/b2b_crm_verification.yml"
 
 permissions:
   contents: read
@@ -29,6 +36,8 @@ jobs:
           python-version: "3.11"
       - name: Install Dependencies
         run: pip install --disable-pip-version-check -q -r requirements.txt
+      - name: Run Unit Tests
+        run: pytest -v
       - name: Run CRM Verification Engine
         run: python -m src.runner --workflow crm_verification
       - name: Failure Alert Summary
