@@ -5,6 +5,9 @@ name: SRD B2B Inbox Monitor (09:00-19:00 IST Every 2h)
 # 15:00 IST = 09:30 UTC | 17:00 IST = 11:30 UTC | 19:00 IST = 13:30 UTC
 on:
   workflow_dispatch: {}
+  pull_request:
+    branches: [main]
+    paths: ["src/**", "tests/**", ".github/workflows/**"]
   schedule:
     - cron: "30 3,5,7,9,11,13 * * *"
   push:
@@ -45,6 +48,7 @@ jobs:
       - name: Run Unit Tests
         run: pytest -v
       - name: Run Inbox Monitor Engine (Read-Only, Zero Outbound Send)
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
         run: python -m src.runner --workflow inbox_monitor
       - name: Failure Alert Summary
         if: failure()
