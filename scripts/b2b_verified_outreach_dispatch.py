@@ -51,6 +51,11 @@ def extract_sender_address(raw: str) -> str:
     return candidate if EMAIL_RE.fullmatch(candidate) else ""
 
 
+def is_human_reply_category(category: str) -> bool:
+    """Return true only for inbound messages that require a human prospect handoff."""
+    return category in {"reply", "procurement_request"}
+
+
 def email_domain(address: str) -> str:
     return address.rsplit("@", 1)[1].lower() if "@" in address else ""
 
@@ -279,7 +284,7 @@ def run(live_send: bool = False):
         # Only messages classified as an actual reply or procurement response
         # should hold a prospect for human handling. The inbox contains unrelated
         # correspondence too; treating every sender as a reply suppresses valid leads.
-        if sender_address and sender_address != sender.lower() and item.get("category") in {"reply", "procurement_request"}:
+        if sender_address and sender_address != sender.lower() and is_human_reply_category(item.get("category", "")):
             inbox_senders.append(sender_address)
         if item.get("category") in {"unsubscribe", "complaint", "hard_bounce"}:
             target = extract_sender_address(item.get("target_email", "")) or (item.get("target_email", "").lower() if EMAIL_RE.fullmatch(item.get("target_email", "").lower()) else "")
