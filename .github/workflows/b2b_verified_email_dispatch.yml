@@ -1,0 +1,50 @@
+name: SRD B2B Verified Outreach (Manual / Dry-Run by Default)
+
+on:
+  workflow_dispatch:
+    inputs:
+      live_send:
+        description: "Enable real outbound email (requires B2B_ALLOW_VERIFIED_SEND=true)"
+        required: true
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: srd-b2b-verified-outreach
+  cancel-in-progress: false
+
+env:
+  TZ: Asia/Kolkata
+  PYTHONPATH: .
+  CRM_SPREADSHEET_ID: ${{ secrets.CRM_SPREADSHEET_ID }}
+  GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}
+  GMAIL_CLIENT_ID: ${{ secrets.GMAIL_CLIENT_ID }}
+  GMAIL_CLIENT_SECRET: ${{ secrets.GMAIL_CLIENT_SECRET }}
+  GMAIL_REFRESH_TOKEN: ${{ secrets.GMAIL_REFRESH_TOKEN }}
+  GMAIL_SENDER_EMAIL: srdayurveda@gmail.com
+  B2B_ALLOW_VERIFIED_SEND: ${{ secrets.B2B_ALLOW_VERIFIED_SEND }}
+  B2B_DAILY_SEND_LIMIT: "10"
+
+jobs:
+  verified-outreach:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install --disable-pip-version-check -q -r requirements.txt
+      - name: Run unit tests
+        run: pytest -q
+      - name: Build verified dispatch plan (dry-run by default)
+        run: |
+          if [ "${{ inputs.live_send }}" = "true" ]; then
+            python -m scripts.b2b_verified_outreach_dispatch --live-send
+          else
+            python -m scripts.b2b_verified_outreach_dispatch
+          fi
