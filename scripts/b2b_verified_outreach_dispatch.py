@@ -150,7 +150,8 @@ def build_dispatch_plan(
         if reason:
             held.append({"row_number": row_number, "lead_id": lead_id, "reason": reason})
         else:
-            eligible.append({"row_number": row_number, "lead_id": lead_id, "company": company, "email": address, "touch": touch})
+            campaign_name, routed_sender = resolve_campaign_sender(cell(row, idx, "Business_Category"), cell(row, idx, "Interested_Products"), notes)
+            eligible.append({"row_number": row_number, "lead_id": lead_id, "company": company, "email": address, "touch": touch, "campaign": campaign_name, "sender": routed_sender})
 
     return {
         "eligible": eligible[:limit],
@@ -315,14 +316,14 @@ def run(live_send: bool = False):
         raise RuntimeError("Authenticated Gmail sender does not match GMAIL_SENDER_EMAIL; refusing to send.")
     idx = header_index(crm[0] if crm else [])
     sent = 0
-    for lead in plan["eligible"]:
+    for lead in [x for x in plan["eligible"] if norm(x.get("sender", sender)) == norm(sender)]:
         row = list(crm[lead["row_number"] - 1])
         while len(row) < len(crm[0]):
             row.append("")
         _reserve_row(sheets, spreadsheet_id, lead["row_number"], row, idx, os.environ.get("GITHUB_RUN_ID", "manual"))
-        subject, body = build_message(
+        _, _, subject, body = build_campaign_message(
             lead["company"], cell(row, idx, "Contact_Person"), cell(row, idx, "Business_Category"),
-            cell(row, idx, "Country"), cell(row, idx, "Interested_Products"), lead["touch"], sender,
+            cell(row, idx, "Country"), cell(row, idx, "Interested_Products"), lead["touch"], lead["lead_id"], cell(row, idx, "Notes"),
         )
         msg = EmailMessage()
         msg.set_content(body)
@@ -341,6 +342,90 @@ def run(live_send: bool = False):
             log_event(logger, "ERROR", "dispatch_failed_or_ambiguous", lead_id=lead["lead_id"], error=str(exc))
             raise
     log_event(logger, "INFO", "dispatch_run_complete", sent=sent, held=len(plan["held"]), outbound_sent=sent)
+
+
+
+
+ELEPHANT_CARE_SENDER = "pulamantholemoossayurveda@gmail.com"
+CHYAVANAPRASAM_B2B_SENDER = "pulamantholemooss@gmail.com"
+
+
+def resolve_campaign_sender(category: str, products: str, notes: str) -> tuple[str, str]:
+    """Route Elephant Care / Gaja Chikilsa prospects to pulamantholemoossayurveda@gmail.com
+    and Chyavanaprasam / Medicine B2B prospects to pulamantholemooss@gmail.com."""
+    blob = f"{norm(category)} {norm(products)} {norm(notes)}"
+    if any(k in blob for k in ("elephant", "gaja chikilsa", "devaswom", "zoological", "wildlife")):
+        return "ELEPHANT_CARE_B2B", ELEPHANT_CARE_SENDER
+    return "CHYAVANAPRASAM_B2B", CHYAVANAPRASAM_B2B_SENDER
+
+
+def build_campaign_message(
+    company: str,
+    contact: str,
+    category: str,
+    country: str,
+    products: str,
+    touch: int,
+    lead_id: str = "",
+    notes: str = "",
+) -> tuple[str, str, str, str]:
+    campaign, sender = resolve_campaign_sender(category, products, notes)
+    greeting = contact if norm(contact) not in {"", "n/a", "na", "unknown", "administrator / devaswom office"} else "Team"
+    tag = f" ({lead_id})" if lead_id else ""
+    if campaign == "ELEPHANT_CARE_B2B":
+        subject = (
+            f"Institutional Ayurveda & Nutritional Rasayana Discussion | {company} & Pulamanthole Mooss{tag}"
+            if touch == 1
+            else f"Follow-up: Institutional Ayurveda & Elephant Care Discussion | Pulamanthole Mooss{tag}"
+        )
+        body = f"""Namaskaram,
+
+Greetings from Ashtavaidyan Pulamanthole Mooss Ayurveda Hospital & Pharmaceuticals, Pulamanthole, Malappuram, Kerala (GMP Cert No. 575 | Mfg. Lic. MFG/AYUR/KL/MAL-201).
+
+We are reaching out to {company} ({category or 'institution'}, {country or 'India'}) in recognition of your stewardship and care of captive elephants.
+
+Rooted in over 500 years of classical Kerala Ashtavaidya heritage, Ashtavaidyan Pulamanthole Mooss manufactures classical Ayurvedic formulations and institutional rasayana preparations—including our institutional Chyavanaprasam formulation—under strict GMP quality protocols for traditional seasonal rejuvenation and nutritional support.
+
+We would welcome a brief institutional discussion with your administrative and veterinary leadership to understand your requirements and share further institutional details.
+
+Warm regards,
+Institutional & Gaja Chikilsa Desk
+Ashtavaidyan Pulamanthole Mooss Ayurveda Hospital & Pharmaceuticals
+Pulamanthole P.O., Malappuram, Kerala – 679323
+Email: {ELEPHANT_CARE_SENDER}
+Phone / Enquiries: +91 94465 67506 | +91 97780 04082
+Websites: https://pulamantholemoosshospital.com | https://pulamantholemooss.com
+
+To stop future institutional emails, reply with "Unsubscribe" or email {ELEPHANT_CARE_SENDER} with the subject "Unsubscribe".
+"""
+        return campaign, sender, subject, body
+
+    subject = (
+        f"Wholesale & Institutional Supply: Pulamanthole Mooss Chyavanaprasam & Classical Formulations{tag}"
+        if touch == 1
+        else f"Follow-up: Pulamanthole Mooss Chyavanaprasam & Classical Catalogue{tag}"
+    )
+    body = f"""Dear {greeting},
+
+Greetings from Ashtavaidyan Pulamanthole Mooss Ayurveda Hospital & Pharmaceuticals, Pulamanthole, Malappuram, Kerala.
+
+Rooted in over 500 years of classical Kerala Ashtavaidya lineage, our GMP-certified pharmaceutical unit (GMP Cert No. 575 | Mfg. Lic. MFG/AYUR/KL/MAL-201) manufactures authentic classical Ayurvedic formulations—led by our classical Chyavanaprasam (Amalaki-based Rasayana Avaleha), alongside classical Kerams, Choornams, Arishtams, and Kashayams.
+
+We are contacting {company} ({category or 'Ayurveda trade & healthcare organisation'}, {country or 'your market'}) to explore wholesale distribution or institutional supply synergies. Areas noted: {products or 'Chyavanaprasam & classical Ayurvedic formulations'}.
+
+We would be pleased to share our verified product catalogue and discuss your procurement requirements. Commercial terms, pricing tiers, and destination regulatory documentation will be confirmed directly against your requirements.
+
+Warm regards,
+B2B & Institutional Trade Desk
+Ashtavaidyan Pulamanthole Mooss Ayurveda Hospital & Pharmaceuticals
+Pulamanthole P.O., Malappuram, Kerala – 679323
+Email: {CHYAVANAPRASAM_B2B_SENDER}
+Phone / Trade Enquiries: +91 94465 67506
+Websites: https://pulamantholemooss.com | https://pulamantholemoosshospital.com
+
+To stop future business emails, reply with "Unsubscribe" or email {CHYAVANAPRASAM_B2B_SENDER} with the subject "Unsubscribe".
+"""
+    return campaign, sender, subject, body
 
 
 if __name__ == "__main__":
