@@ -1,5 +1,10 @@
 # Ashtavaidyan Pulamanthole Mooss Ayurveda Hospital & Pharmaceuticals (Est. 1795)
 
+> **Book a Consultation or Enquire Directly**  
+> Hospital Consultations & Inpatient Desk: [+91 97780 04082](tel:+919778004082) · [WhatsApp Consultation Desk](https://wa.me/919778004082?text=Hello%20I%20would%20like%20to%20enquire%20about%20a%20consultation%20at%20Ashtavaidyan%20Pulamanthole%20Mooss%20Ayurveda%20Hospital)  
+> GMP-Certified Pharmacy & Medicine Enquiries: [+91 94465 67506](tel:+919446567506) · ROHINI Registration Certified Hospital · GMP Cert No. 575 | Mfg. Lic. MFG/AYUR/KL/MAL-201
+
+
 **Official Open Knowledge Hub, AI/GEO Structured Data (`llms.txt` & JSON-LD Schemas), Ashtavaidya Heritage & *Kairali* Commentary, 5 Physician Profiles, 8 Specialized Hospital Clinic Guides, 12 GMP Pharmaceutical SKU Specifications, 8 Regional Location Guides, & 10 Physician-Attributed AEO Pillar Articles**
 
 - **Hospital Website (Divisions 1, 2, 4, 5):** [https://www.pulamantholemoosshospital.com/](https://www.pulamantholemoosshospital.com/)
