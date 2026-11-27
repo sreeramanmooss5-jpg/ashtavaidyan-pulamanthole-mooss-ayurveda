@@ -8,8 +8,12 @@ are persisted to the suppression sheet before any dispatch plan is built.
 import argparse
 import base64
 import datetime as dt
+import imaplib
 import os
 import re
+import smtplib
+from email import message_from_bytes
+from email.header import decode_header
 from email.message import EmailMessage
 from typing import Any, Dict, Iterable, List, Set
 from zoneinfo import ZoneInfo
@@ -252,21 +256,70 @@ def _finish_row(sheets, spreadsheet_id: str, row_number: int, row: List[Any], id
     sheets.update_values(spreadsheet_id, f"Global_Prospect_CRM!A{row_number}:AA{row_number}", [row])
 
 
+
+def _decode_mime_header(value: str) -> str:
+    parts = []
+    for chunk, enc in decode_header(value or ""):
+        if isinstance(chunk, bytes):
+            parts.append(chunk.decode(enc or "utf-8", errors="replace"))
+        else:
+            parts.append(str(chunk))
+    return "".join(parts)
+
+
+def _fetch_inbox_imap(email_addr: str, app_password: str, max_messages: int = 200) -> List[Dict[str, Any]]:
+    items: List[Dict[str, Any]] = []
+    with imaplib.IMAP4_SSL("imap.gmail.com", 993) as mail:
+        mail.login(email_addr, app_password)
+        mail.select("INBOX", readonly=True)
+        status, data = mail.search(None, "ALL")
+        if status != "OK" or not data or not data[0]:
+            return items
+        msg_nums = data[0].split()[-max_messages:]
+        for num in reversed(msg_nums):
+            st, msg_data = mail.fetch(num, "(BODY.PEEK[HEADER.FIELDS (FROM TO SUBJECT DATE AUTO-SUBMITTED X-FAILED-RECIPIENTS)] BODY.PEEK[TEXT]<0.512>)")
+            if st != "OK" or not msg_data:
+                continue
+            raw_bytes = b"".join(part[1] for part in msg_data if isinstance(part, tuple) and len(part) > 1)
+            parsed = message_from_bytes(raw_bytes)
+            from_hdr = _decode_mime_header(parsed.get("From", ""))
+            subj_hdr = _decode_mime_header(parsed.get("Subject", ""))
+            snippet = ""
+            try:
+                snippet = parsed.get_payload(decode=True).decode("utf-8", errors="replace") if not parsed.is_multipart() else ""
+            except Exception:
+                snippet = ""
+            items.append({"from": from_hdr, "subject": subj_hdr, "snippet": snippet[:400]})
+    return items
+
+
+def _send_smtp(sender_email: str, app_password: str, msg: EmailMessage) -> str:
+    with smtplib.SMTP_SSL("smtp.gmail.com", 465, timeout=30) as smtp:
+        smtp.login(sender_email, app_password)
+        smtp.send_message(msg)
+    return msg.get("Message-ID") or f"smtp-{int(dt.datetime.now(TZ).timestamp())}"
+
+
 def run(live_send: bool = False):
     logger = get_logger("srd.b2b.verified_dispatch", "Asia/Kolkata")
     if live_send and os.environ.get("B2B_ALLOW_VERIFIED_SEND", "").strip().lower() != "true":
         raise RuntimeError("Live dispatch blocked: B2B_ALLOW_VERIFIED_SEND is not true.")
     spreadsheet_id = os.environ.get("CRM_SPREADSHEET_ID", "").strip()
     service_json = os.environ.get("GOOGLE_SERVICE_ACCOUNT_JSON", "").strip()
+    service_b64 = os.environ.get("GOOGLE_SERVICE_ACCOUNT_B64", "").strip()
     client_id = os.environ.get("GMAIL_CLIENT_ID", "").strip()
     client_secret = os.environ.get("GMAIL_CLIENT_SECRET", "").strip()
     refresh_token = os.environ.get("GMAIL_REFRESH_TOKEN", "").strip()
     send_refresh_token = os.environ.get("GMAIL_SEND_REFRESH_TOKEN", "").strip()
-    sender = os.environ.get("GMAIL_SENDER_EMAIL", "srdayurveda@gmail.com").strip()
-    if not all([spreadsheet_id, service_json, client_id, client_secret, refresh_token]):
-        raise RuntimeError("Missing CRM or read-only Gmail OAuth configuration; dispatcher fails closed.")
-    if live_send and not send_refresh_token:
-        raise RuntimeError("Live dispatch requires a separately authorized GMAIL_SEND_REFRESH_TOKEN with gmail.send scope.")
+    app_pw_med = os.environ.get("GMAIL_APP_PASSWORD_MEDICINE", "").strip()
+    app_pw_gaja = os.environ.get("GMAIL_APP_PASSWORD_GAJA", "").strip()
+    sender = os.environ.get("GMAIL_SENDER_EMAIL", CHYAVANAPRASAM_B2B_SENDER).strip()
+    has_oauth_read = all([client_id, client_secret, refresh_token])
+    has_imap = bool(app_pw_med or app_pw_gaja)
+    if not spreadsheet_id or not (service_json or service_b64) or not (has_oauth_read or has_imap):
+        raise RuntimeError("Missing CRM or Gmail (App Password or OAuth) configuration; dispatcher fails closed.")
+    if live_send and not (send_refresh_token or has_imap):
+        raise RuntimeError("Live dispatch requires GMAIL_APP_PASSWORD_* or GMAIL_SEND_REFRESH_TOKEN.")
 
     daily_limit = max(0, min(int(os.environ.get("B2B_DAILY_SEND_LIMIT", "10")), MAX_DAILY_SEND_LIMIT))
     sheets = GoogleSheetsClient(service_json)
@@ -274,23 +327,34 @@ def run(live_send: bool = False):
     suppression = sheets.get_values(spreadsheet_id, "Suppression_&_DNC_List!A1:H500")
     replies = sheets.get_values(spreadsheet_id, "Inbox_Replies!A1:Z500")
 
-    reader = GmailReadClient(client_id, client_secret, refresh_token)
-    messages = reader.list_messages(query="in:inbox newer_than:90d", max_results=500)
     classified, inbox_senders = [], []
-    for message in messages:
-        meta = reader.get_message_metadata(message["id"])
-        headers = meta.get("headers", {})
-        sender_address = extract_sender_address(headers.get("from", ""))
-        item = classify_message(headers.get("from", ""), headers.get("subject", ""), meta.get("snippet", ""))
-        # Only messages classified as an actual reply or procurement response
-        # should hold a prospect for human handling. The inbox contains unrelated
-        # correspondence too; treating every sender as a reply suppresses valid leads.
-        if sender_address and sender_address != sender.lower() and is_human_reply_category(item.get("category", "")):
-            inbox_senders.append(sender_address)
-        if item.get("category") in {"unsubscribe", "complaint", "hard_bounce"}:
-            target = extract_sender_address(item.get("target_email", "")) or (item.get("target_email", "").lower() if EMAIL_RE.fullmatch(item.get("target_email", "").lower()) else "")
-            item["target_email"] = target
-        classified.append(item)
+    if has_imap:
+        for acct, pw in [(CHYAVANAPRASAM_B2B_SENDER, app_pw_med), (ELEPHANT_CARE_SENDER, app_pw_gaja)]:
+            if not pw:
+                continue
+            for m in _fetch_inbox_imap(acct, pw):
+                sender_address = extract_sender_address(m["from"])
+                item = classify_message(m["from"], m["subject"], m["snippet"])
+                if sender_address and sender_address not in {CHYAVANAPRASAM_B2B_SENDER, ELEPHANT_CARE_SENDER} and is_human_reply_category(item.get("category", "")):
+                    inbox_senders.append(sender_address)
+                if item.get("category") in {"unsubscribe", "complaint", "hard_bounce"}:
+                    target = extract_sender_address(item.get("target_email", "")) or (item.get("target_email", "").lower() if EMAIL_RE.fullmatch(item.get("target_email", "").lower()) else "")
+                    item["target_email"] = target
+                classified.append(item)
+    else:
+        reader = GmailReadClient(client_id, client_secret, refresh_token)
+        messages = reader.list_messages(query="in:inbox newer_than:90d", max_results=500)
+        for message in messages:
+            meta = reader.get_message_metadata(message["id"])
+            headers = meta.get("headers", {})
+            sender_address = extract_sender_address(headers.get("from", ""))
+            item = classify_message(headers.get("from", ""), headers.get("subject", ""), meta.get("snippet", ""))
+            if sender_address and sender_address != sender.lower() and is_human_reply_category(item.get("category", "")):
+                inbox_senders.append(sender_address)
+            if item.get("category") in {"unsubscribe", "complaint", "hard_bounce"}:
+                target = extract_sender_address(item.get("target_email", "")) or (item.get("target_email", "").lower() if EMAIL_RE.fullmatch(item.get("target_email", "").lower()) else "")
+                item["target_email"] = target
+            classified.append(item)
 
     observed_at = dt.datetime.now(TZ).isoformat()
     added = 0
@@ -304,19 +368,34 @@ def run(live_send: bool = False):
         log_event(logger, "INFO", "dry_run_complete", eligible_lead_ids=[x["lead_id"] for x in plan["eligible"]], held_count=len(plan["held"]), outbound_sent=0)
         return
 
-    send_creds = Credentials(
-        token=None, refresh_token=send_refresh_token,
-        token_uri="https://oauth2.googleapis.com/token",
-        client_id=client_id, client_secret=client_secret,
-        scopes=["https://www.googleapis.com/auth/gmail.send"],
-    )
-    gmail = build("gmail", "v1", credentials=send_creds, cache_discovery=False)
-    profile = gmail.users().getProfile(userId="me").execute()
-    if norm(profile.get("emailAddress")) != norm(sender):
-        raise RuntimeError("Authenticated Gmail sender does not match GMAIL_SENDER_EMAIL; refusing to send.")
+    smtp_map = {}
+    if app_pw_med:
+        smtp_map[norm(CHYAVANAPRASAM_B2B_SENDER)] = app_pw_med
+    if app_pw_gaja:
+        smtp_map[norm(ELEPHANT_CARE_SENDER)] = app_pw_gaja
+
+    gmail = None
+    if not smtp_map:
+        send_creds = Credentials(
+            token=None, refresh_token=send_refresh_token,
+            token_uri="https://oauth2.googleapis.com/token",
+            client_id=client_id, client_secret=client_secret,
+            scopes=["https://www.googleapis.com/auth/gmail.send"],
+        )
+        gmail = build("gmail", "v1", credentials=send_creds, cache_discovery=False)
+        profile = gmail.users().getProfile(userId="me").execute()
+        if norm(profile.get("emailAddress")) != norm(sender):
+            raise RuntimeError("Authenticated Gmail sender does not match GMAIL_SENDER_EMAIL; refusing to send.")
+
     idx = header_index(crm[0] if crm else [])
     sent = 0
-    for lead in [x for x in plan["eligible"] if norm(x.get("sender", sender)) == norm(sender)]:
+    for lead in plan["eligible"]:
+        lead_sender = lead.get("sender") or sender
+        if smtp_map:
+            if norm(lead_sender) not in smtp_map:
+                continue
+        elif norm(lead_sender) != norm(sender):
+            continue
         row = list(crm[lead["row_number"] - 1])
         while len(row) < len(crm[0]):
             row.append("")
@@ -328,15 +407,19 @@ def run(live_send: bool = False):
         msg = EmailMessage()
         msg.set_content(body)
         msg["To"] = lead["email"]
-        msg["From"] = sender
+        msg["From"] = lead_sender
         msg["Subject"] = subject
-        msg["List-Unsubscribe"] = f"<mailto:{sender}?subject=Unsubscribe>"
+        msg["List-Unsubscribe"] = f"<mailto:{lead_sender}?subject=Unsubscribe>"
         try:
-            raw = base64.urlsafe_b64encode(msg.as_bytes()).decode("utf-8")
-            response = gmail.users().messages().send(userId="me", body={"raw": raw}).execute()
+            if smtp_map:
+                msg_id = _send_smtp(lead_sender, smtp_map[norm(lead_sender)], msg)
+            else:
+                raw = base64.urlsafe_b64encode(msg.as_bytes()).decode("utf-8")
+                response = gmail.users().messages().send(userId="me", body={"raw": raw}).execute()
+                msg_id = response.get("id", "unknown")
             sent_at = dt.datetime.now(TZ)
-            _finish_row(sheets, spreadsheet_id, lead["row_number"], row, idx, sent_at, lead["touch"], response.get("id", "unknown"))
-            log_event(logger, "INFO", "verified_email_sent", lead_id=lead["lead_id"], recipient_domain=email_domain(lead["email"]), touch=lead["touch"], gmail_message_id=response.get("id", ""))
+            _finish_row(sheets, spreadsheet_id, lead["row_number"], row, idx, sent_at, lead["touch"], msg_id)
+            log_event(logger, "INFO", "verified_email_sent", lead_id=lead["lead_id"], sender=lead_sender, recipient_domain=email_domain(lead["email"]), touch=lead["touch"], gmail_message_id=msg_id)
             sent += 1
         except Exception as exc:
             log_event(logger, "ERROR", "dispatch_failed_or_ambiguous", lead_id=lead["lead_id"], error=str(exc))
