@@ -1,4 +1,6 @@
+import base64
 import json
+import os
 import random
 import time
 from typing import Any, Dict, List
@@ -13,11 +15,29 @@ SCOPES = [
 ]
 
 
+def _parse_service_account_info(raw_value: str) -> Dict[str, Any]:
+    val = (raw_value or "").strip()
+    if not val:
+        b64_val = os.environ.get("GOOGLE_SERVICE_ACCOUNT_B64", "").strip()
+        if b64_val:
+            val = base64.b64decode("".join(b64_val.split())).decode("utf-8")
+    if not val:
+        raise ValueError("GOOGLE_SERVICE_ACCOUNT_JSON or GOOGLE_SERVICE_ACCOUNT_B64 is required for Google Sheets client.")
+    if not val.lstrip().startswith("{"):
+        val = base64.b64decode("".join(val.split())).decode("utf-8")
+    info = json.loads(val)
+    pk = info.get("private_key")
+    if isinstance(pk, str):
+        pk = pk.replace("\\n", "\n").strip()
+        if not pk.endswith("\n"):
+            pk += "\n"
+        info["private_key"] = pk
+    return info
+
+
 class GoogleSheetsClient:
     def __init__(self, service_account_json: str, timeout_sec: int = 30, max_retries: int = 3, backoff_base_sec: float = 1.0):
-        if not service_account_json or not service_account_json.strip():
-            raise ValueError("GOOGLE_SERVICE_ACCOUNT_JSON is required for Google Sheets client.")
-        info = json.loads(service_account_json)
+        info = _parse_service_account_info(service_account_json)
         creds = service_account.Credentials.from_service_account_info(info, scopes=SCOPES)
         self.max_retries = max_retries
         self.backoff_base_sec = backoff_base_sec
@@ -71,24 +91,6 @@ class GoogleSheetsClient:
                     spreadsheetId=spreadsheet_id,
                     range=range_name,
                     valueInputOption=value_input_option,
-                    body={"values": values},
-                )
-                .execute()
-            )
-
-        return self._call_with_retry(_op)
-
-    def append_values(self, spreadsheet_id: str, range_name: str, values: List[List[Any]], value_input_option: str = "USER_ENTERED") -> Dict[str, Any]:
-        """Append rows to a sheet without overwriting existing suppression records."""
-        def _op():
-            return (
-                self._service.spreadsheets()
-                .values()
-                .append(
-                    spreadsheetId=spreadsheet_id,
-                    range=range_name,
-                    valueInputOption=value_input_option,
-                    insertDataOption="INSERT_ROWS",
                     body={"values": values},
                 )
                 .execute()
