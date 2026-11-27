@@ -3,6 +3,7 @@ import json
 import os
 import random
 import time
+import urllib.request
 from typing import Any, Dict, List
 
 from google.oauth2 import service_account
@@ -22,7 +23,7 @@ def _parse_service_account_info(raw_value: str) -> Dict[str, Any]:
         if b64_val:
             val = base64.b64decode("".join(b64_val.split())).decode("utf-8")
     if not val:
-        raise ValueError("GOOGLE_SERVICE_ACCOUNT_JSON or GOOGLE_SERVICE_ACCOUNT_B64 is required for Google Sheets client.")
+        raise ValueError("GOOGLE_SERVICE_ACCOUNT_JSON, GOOGLE_SERVICE_ACCOUNT_B64, or APPS_SCRIPT_WEBHOOK_URL is required.")
     if not val.lstrip().startswith("{"):
         val = base64.b64decode("".join(val.split())).decode("utf-8")
     info = json.loads(val)
@@ -36,12 +37,35 @@ def _parse_service_account_info(raw_value: str) -> Dict[str, Any]:
 
 
 class GoogleSheetsClient:
-    def __init__(self, service_account_json: str, timeout_sec: int = 30, max_retries: int = 3, backoff_base_sec: float = 1.0):
-        info = _parse_service_account_info(service_account_json)
-        creds = service_account.Credentials.from_service_account_info(info, scopes=SCOPES)
+    def __init__(self, service_account_json: str = "", timeout_sec: int = 30, max_retries: int = 3, backoff_base_sec: float = 1.0):
         self.max_retries = max_retries
         self.backoff_base_sec = backoff_base_sec
+        self.timeout_sec = timeout_sec
+        self._apps_script_url = os.environ.get("APPS_SCRIPT_WEBHOOK_URL", "").strip()
+        self._apps_script_token = os.environ.get("APPS_SCRIPT_TOKEN", "").strip()
+        self._service = None
+        if self._apps_script_url:
+            return
+        info = _parse_service_account_info(service_account_json)
+        creds = service_account.Credentials.from_service_account_info(info, scopes=SCOPES)
         self._service = build("sheets", "v4", credentials=creds, cache_discovery=False)
+
+    def _call_apps_script(self, payload: Dict[str, Any]) -> Dict[str, Any]:
+        body = dict(payload)
+        if self._apps_script_token:
+            body["token"] = self._apps_script_token
+        data = json.dumps(body).encode("utf-8")
+        req = urllib.request.Request(
+            self._apps_script_url,
+            data=data,
+            headers={"Content-Type": "application/json"},
+            method="POST",
+        )
+        with urllib.request.urlopen(req, timeout=self.timeout_sec) as resp:
+            out = json.loads(resp.read().decode("utf-8"))
+        if not out.get("ok"):
+            raise RuntimeError(f"Apps Script Sheets error: {out.get('error', 'unknown error')}")
+        return out
 
     def _call_with_retry(self, fn):
         for attempt in range(self.max_retries + 1):
@@ -56,6 +80,10 @@ class GoogleSheetsClient:
                 raise
 
     def get_values(self, spreadsheet_id: str, range_name: str) -> List[List[Any]]:
+        if self._apps_script_url:
+            out = self._call_apps_script({"action": "get_values", "spreadsheet_id": spreadsheet_id, "range": range_name})
+            return out.get("values") or []
+
         def _op():
             resp = (
                 self._service.spreadsheets()
@@ -68,6 +96,10 @@ class GoogleSheetsClient:
         return self._call_with_retry(_op)
 
     def batch_get(self, spreadsheet_id: str, ranges: List[str]) -> Dict[str, List[List[Any]]]:
+        if self._apps_script_url:
+            out = self._call_apps_script({"action": "batch_get", "spreadsheet_id": spreadsheet_id, "ranges": ranges})
+            return out.get("valueRanges") or {}
+
         def _op():
             resp = (
                 self._service.spreadsheets()
@@ -83,6 +115,9 @@ class GoogleSheetsClient:
         return self._call_with_retry(_op)
 
     def update_values(self, spreadsheet_id: str, range_name: str, values: List[List[Any]], value_input_option: str = "USER_ENTERED") -> Dict[str, Any]:
+        if self._apps_script_url:
+            return self._call_apps_script({"action": "update_values", "spreadsheet_id": spreadsheet_id, "range": range_name, "values": values})
+
         def _op():
             return (
                 self._service.spreadsheets()
