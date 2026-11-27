@@ -307,6 +307,7 @@ def run(live_send: bool = False):
     spreadsheet_id = os.environ.get("CRM_SPREADSHEET_ID", "").strip()
     service_json = os.environ.get("GOOGLE_SERVICE_ACCOUNT_JSON", "").strip()
     service_b64 = os.environ.get("GOOGLE_SERVICE_ACCOUNT_B64", "").strip()
+    apps_script_url = os.environ.get("APPS_SCRIPT_WEBHOOK_URL", "").strip()
     client_id = os.environ.get("GMAIL_CLIENT_ID", "").strip()
     client_secret = os.environ.get("GMAIL_CLIENT_SECRET", "").strip()
     refresh_token = os.environ.get("GMAIL_REFRESH_TOKEN", "").strip()
@@ -316,7 +317,7 @@ def run(live_send: bool = False):
     sender = os.environ.get("GMAIL_SENDER_EMAIL", CHYAVANAPRASAM_B2B_SENDER).strip()
     has_oauth_read = all([client_id, client_secret, refresh_token])
     has_imap = bool(app_pw_med or app_pw_gaja)
-    if not spreadsheet_id or not (service_json or service_b64) or not (has_oauth_read or has_imap):
+    if not spreadsheet_id or not (service_json or service_b64 or apps_script_url) or not (has_oauth_read or has_imap):
         raise RuntimeError("Missing CRM or Gmail (App Password or OAuth) configuration; dispatcher fails closed.")
     if live_send and not (send_refresh_token or has_imap):
         raise RuntimeError("Live dispatch requires GMAIL_APP_PASSWORD_* or GMAIL_SEND_REFRESH_TOKEN.")
